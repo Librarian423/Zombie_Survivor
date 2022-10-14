@@ -1,4 +1,5 @@
 #include "Object.h"
+#include "../Framework/Utils.h"
 
 int Object::objCount = 0;
 
@@ -32,6 +33,8 @@ bool Object::GetActive() const
 void Object::Init()
 {
 	hitbox.setFillColor(Color::Red);
+	hitbox.setOutlineColor(Color::Black);
+	hitbox.setOutlineThickness(2.f);
 	Reset();
 }
 
@@ -47,7 +50,7 @@ void Object::Reset()
 void Object::SetPos(const Vector2f& pos)
 {
 	position = pos;
-	hitbox.setPosition(position);
+	hitbox.setPosition(pos);
 }
 
 const Vector2f& Object::GetPos() const
@@ -62,12 +65,11 @@ void Object::Translate(Vector2f delta)
 
 void Object::Update(float dt)
 {
-
 }
 
 void Object::Draw(RenderWindow& window)
 {
-	if ( isDevMod )
+	if ( !isDevMod )
 	{
 		window.draw(hitbox);
 	}
@@ -75,11 +77,11 @@ void Object::Draw(RenderWindow& window)
 
 void Object::SetHitbox(const FloatRect rect)
 {
-	/*Vector2f hitboxPos = GetPos();
-
-	hitboxPos.x -= rect.left;
-	hitboxPos.y -= rect.top;*/
-
-	hitbox.setPosition(position);
 	hitbox.setSize({ rect.width, rect.height });
+	Utils::SetOrigin(hitbox, Origins::MC);
+}
+
+FloatRect Object::GetHitbox() const
+{
+	return hitbox.getGlobalBounds();
 }

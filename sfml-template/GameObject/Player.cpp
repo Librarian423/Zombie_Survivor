@@ -62,19 +62,25 @@ void Player::Update(float dt)
 	Vector2f mouseWorldPos = scene->ScreenToWorldPos(mousePos);
 
 	look = Utils::Normalize(mouseWorldPos - GetPos());
-	float degree = atan2(look.y, look.x) * (180.f / M_PI);
-	sprite.setRotation(degree);
+	sprite.setRotation(Utils::Angle(look));
+	hitbox.setRotation(Utils::Angle(look));
 
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
+	direction.x = InputMgr::GetAxisRaw(Axis::Horizontal);
+	direction.y = InputMgr::GetAxisRaw(Axis::Vertical);
 	
-	//accelation
+	//가속
 	velocity += direction * accelation * dt;
 	if ( Utils::Magnitude(velocity) > speed )
 	{
 		velocity = Utils::Normalize(velocity) * speed;
 	}
+
 	//감속
+	if (Utils::Magnitude(direction) == 0.f)
+	{
+		velocity = { 0.f, 0.f };
+	}
+
 	if ( direction.x == 0.f )
 	{
 		if ( velocity.x > 0.f )
@@ -215,7 +221,6 @@ void Player::Fire()
 		return; 
 	}
 	Vector2f startPos = position + look * 25.f;
-	//look = Utils::Normalize(InputMgr::GetMousePos() - startPos);
 	Bullet* bullet = bulletPool->Get();
 	bullet->Fire(startPos, look, 1000, 1000);
 	bullet->SetBackground(background);
@@ -271,7 +276,9 @@ void Player::OnPickupItem(Pickup* item)
 
 void Player::OnHitZombie(Zombie* zombie)
 {
-	zombie->SetActive(false);
+	// 체력 감소
+	//zombie->SetActive(false);
+	cout << zombie->GetObjId() << " " << zombie->GetName() << endl;
 }
 
 void Player::Reload()
@@ -291,6 +298,3 @@ void Player::Reload()
 
 	cout << currentAmmo << " / " << magazineSize << " " << ammo << endl;
 }
-
-
-

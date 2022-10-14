@@ -1,4 +1,5 @@
 #include "Utils.h"
+#include <iostream>
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen(Utils::rd());
@@ -109,4 +110,9 @@ float Utils::Angle(const Vector2f& start, const Vector2f& end)
 float Utils::Angle(const Vector2f& dir)
 {
 	return atan2(dir.y, dir.x) * (180.f / M_PI);
+}
+
+void Utils::PrintVecterState(string name, Vector2f vec)
+{
+	std::cout << name << "(" << vec.x << ", " << vec.y << ")" << std::endl;
 }

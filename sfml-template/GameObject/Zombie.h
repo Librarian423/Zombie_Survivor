@@ -46,4 +46,3 @@ public:
 
 	void OnHitBullet(Bullet* bullet);
 };
-

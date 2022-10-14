@@ -18,7 +18,7 @@ SceneDev2::~SceneDev2()
 
 void SceneDev2::Init()
 {
-	obj1 = new Object();
+	/*obj1 = new Object();
 	obj1->SetHitbox({ 0,0,100,100 });
 	obj1->SetPos({ 100,100 });
 	AddGameObj(obj1);
@@ -26,7 +26,7 @@ void SceneDev2::Init()
 	obj2 = new Object();
 	obj2->SetHitbox({ 0,0,100,100 });
 	obj1->SetPos({ 300,100 });
-	AddGameObj(obj2);
+	AddGameObj(obj2);*/
 	
 	for ( auto obj : objList )
 	{

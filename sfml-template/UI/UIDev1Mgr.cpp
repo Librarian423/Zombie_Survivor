@@ -21,8 +21,6 @@ void UIDev1Mgr::SetScore(int score)
 
 void UIDev1Mgr::Init()
 {
-	
-
 	textScore = new TextObj();
 	textScore->SetFont(*RESOURCE_MGR->GetFont("fonts/zombiecontrol.ttf"));
 	textScore->GetSfmlText().setCharacterSize(75);
@@ -46,7 +44,7 @@ void UIDev1Mgr::Release()
 void UIDev1Mgr::Reset()
 {
 	UIMgr::Reset();
-	SetScore(999999);
+	SetScore(0);
 }
 
 void UIDev1Mgr::Update(float dt)

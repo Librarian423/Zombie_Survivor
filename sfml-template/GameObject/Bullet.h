@@ -31,4 +31,3 @@ public:
 	virtual void Draw(RenderWindow& window) override;
 
 };
-

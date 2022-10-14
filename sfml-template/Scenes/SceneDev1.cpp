@@ -37,7 +37,6 @@ void SceneDev1::Init()
 	uiMgr->Init();
 
 	CreateBackground(15, 26, 50.f, 50.f);
-	//CreateZombies(10);
 
 	Vector2i centerPos = FRAMEWORK->GetWindowSize() / 2;
 	background->SetPos({ 0,0 });
@@ -47,6 +46,7 @@ void SceneDev1::Init()
 	player = new Player();
 	player->SetName("Player");
 	player->SetTexture(*RESOURCE_MGR->GetTexture("graphics/player.png"));
+	player->SetHitbox({ -25, -25, 25, 25 });
 	player->SetBulletPool(&bullets);
 	player->SetBackground(background);
 	objList.push_back(player);
@@ -55,19 +55,14 @@ void SceneDev1::Init()
 	bullets.Init();
 
 	//item
-	ItemGenerator* itemGen = new ItemGenerator();
+	/*ItemGenerator* itemGen = new ItemGenerator();
 	itemGen->SetName("ItemGenerator");
-	AddGameObj(itemGen);
+	AddGameObj(itemGen);*/
 
-	
-	//objList.push_back(uiMgr);
 	for ( auto obj : objList )
 	{
 		obj->Init();
 	}
-
-	
-	//player->SetActive(false);
 }
 
 void SceneDev1::Release()
@@ -97,16 +92,11 @@ void SceneDev1::Enter()
 	
 	uiView.setSize(size.x, size.y);
 	uiView.setCenter(size.x * 0.5f, size.y * 0.5f);
-	
-	player->SetPos({ 0,0 });
+
+	player->SetPos({ 0, 0 });
 
 	//zombie
 	CreateZombies(100);
-
-	//item
-	//CreateItems();
-
-	//cursor->SetPos(ScreenToWorldPos((Vector2i)InputMgr::GetMousePos()));
 }
 
 void SceneDev1::Exit()
@@ -140,7 +130,6 @@ void SceneDev1::Exit()
 
 void SceneDev1::Update(float dt)
 {
-
 	Scene::Update(dt);
 
 	worldView.setCenter(player->GetPos());
@@ -150,10 +139,23 @@ void SceneDev1::Update(float dt)
 		SCENE_MGR->ChangeScene(Scenes::Dev2);
 		return;
 	}
+	if (InputMgr::GetKeyDown(Keyboard::F1))
+	{
+		for (Object* obj : objList)
+		{
+			obj->SetDevMode(false);
+		}
+	}
+	if (InputMgr::GetKeyDown(Keyboard::F2))
+	{
+		for (Object* obj : objList)
+		{
+			obj->SetDevMode(true);
+		}
+	}
 	bullets.Update(dt);
 
 	uiMgr->Update(dt);
-	//cursor->SetPos(ScreenToWorldPos((Vector2i)InputMgr::GetMousePos()));
 }
 
 void SceneDev1::Draw(RenderWindow& window)
@@ -214,8 +216,6 @@ void SceneDev1::CreateBackground(int width, int height, float quadWidth, float q
 		currPos.x = startPos.x;
 		currPos.y += 50;
 	}
-	
-	
 }
 
 void SceneDev1::CreateZombies(int count)
@@ -225,20 +225,13 @@ void SceneDev1::CreateZombies(int count)
 	for ( int i = 0; i < count; i++ )
 	{
 		Zombie* zombie = new Zombie();
+		Vector2f genPos = Utils::RandomOutCirclePoint() * Utils::RandomRange(300.f, 500.f);
+		zombie->SetPos(genPos);
 		zombie->SetType((Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes));
 		zombie->Init(player);
-		//std::cout << (int)zombie->GetType() << std::endl;
-		point.x = Utils::RandomRange(-1.0f, 1.0f);
-		point.y = Utils::RandomRange(-1.0f, 1.0f);
-		point = Utils::Normalize(point);
-		point *= Utils::RandomRange(100.f, 500.f);
-		
 		zombie->SetBackground(background);
-		zombie->SetPos(point);
-		
 		
 		objList.push_back(zombie);
 		zombies.push_back(zombie);
 	}
 }
-

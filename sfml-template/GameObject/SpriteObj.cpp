@@ -10,6 +10,7 @@ SpriteObj::~SpriteObj()
 
 void SpriteObj::Draw(RenderWindow& window)
 {
+	Object::Draw(window);
 	window.draw(sprite);
 }
 

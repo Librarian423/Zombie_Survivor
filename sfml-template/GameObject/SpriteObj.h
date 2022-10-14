@@ -24,4 +24,3 @@ public:
 
 	void SetPos(const Vector2f& pos) override;
 };
-

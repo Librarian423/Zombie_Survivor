@@ -41,4 +41,6 @@ public:
 
 	static float Angle(const Vector2f& start, const Vector2f& end);
 	static float Angle(const Vector2f& dir);
+
+	static void PrintVecterState(string name, Vector2f vec);
 };

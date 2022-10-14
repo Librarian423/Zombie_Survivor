@@ -28,8 +28,8 @@ void Zombie::Update(float dt)
     }
     else
     {
-        float degree = atan2(dir.y, dir.x) * (180 / M_PI);
-        sprite.setRotation(degree);
+        sprite.setRotation(Utils::Angle(dir));
+        hitbox.setRotation(Utils::Angle(dir));
     }
     
     //좀비 벽 충돌
@@ -49,7 +49,7 @@ void Zombie::Update(float dt)
     }
 
     //플레이어 충돌
-    if ( GetGlobalBounds().intersects(player->GetGlobalBounds()) )
+    if ( GetGlobalBounds().intersects(player->GetHitbox()) )
     {
         player->OnHitZombie(this);
     }
@@ -71,7 +71,6 @@ void Zombie::Init(Player* player)
     SetOrigin(Origins::MC);
 
     SpriteObj::Init();
-    
 }
 
 void Zombie::SetType(Types t)
@@ -84,6 +83,8 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Bloater:
 	{
         SetTexture(*resMgr->GetTexture("graphics/bloater.png"));
+        SetHitbox({ -25.f, -25.f, 25.f, 25.f });
+        SetName("bloater");
 	    this->speed = 40 ;
         maxHp = 100.f;
 	    break;
@@ -91,6 +92,8 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Chaser:
 	{
         SetTexture(*resMgr->GetTexture("graphics/chaser.png"));
+        SetHitbox({ -18.f, -18.f, 18.f, 18.f });
+        SetName("chaser");
 	    this->speed = 70 ;
         maxHp = 75.f;
 	    break;
@@ -98,6 +101,8 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Crawler:
 	{ 
         SetTexture(*resMgr->GetTexture("graphics/crawler.png"));
+        SetHitbox({ -15.f, -15.f, 15.f, 15.f });
+        SetName("crawler");
 	    this->speed = 20 ;
         maxHp = 50.f;
 	    break;

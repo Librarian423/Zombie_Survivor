@@ -78,4 +78,3 @@ public:
 	void OnPickupItem(Pickup* item);
 	void OnHitZombie(Zombie* zombie);
 };
-
