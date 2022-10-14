@@ -50,12 +50,20 @@ float Utils::RandomRange(float min, float maxInclude)
 	return dist(gen);
 }
 
-//1. 0.0 1.0 랜덤
-//2. 반경이 1.0 원 안에 한 점 랜덤
-//3. 반경이 1.0 원에 접하는 한 점 랜덤
-float Utils::RandomRange()
+float Utils::RandomZeroToOne()
 {
-	return RandomRange(0.0f, 0.1f);
+	return RandomRange(0.f, 1.f);
+}
+
+Vector2f Utils::RandomInCirclePoint()
+{
+	return RandomZeroToOne() * RandomOutCirclePoint();
+}
+
+Vector2f Utils::RandomOutCirclePoint()
+{
+	float radian = RandomRange(0.f, M_PI * 2);
+	return Vector2f({ cos(radian), sin(radian) });
 }
 
 float Utils::SqrMagnitude(const Vector2f& vec)
@@ -101,20 +109,4 @@ float Utils::Angle(const Vector2f& start, const Vector2f& end)
 float Utils::Angle(const Vector2f& dir)
 {
 	return atan2(dir.y, dir.x) * (180.f / M_PI);
-}
-
-float Utils::RandomZeroToOne()
-{
-	return RandomRange(0.f, 1.f);
-}
-
-Vector2f Utils::RandomInCirclePoint()
-{
-	return RandomZeroToOne() * RandomOutCirclePoint();
-}
-
-Vector2f Utils::RandomOutCirclePoint()
-{
-	float radian = RandomRange(0.f, M_PI * 2);
-	return Vector2f({ cos(radian),sin(radian) });
 }

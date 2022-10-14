@@ -201,6 +201,7 @@
     <ClInclude Include="GameObject\Zombie.h" />
     <ClInclude Include="UI\UIDev1Mgr.h" />
     <ClInclude Include="UI\UIMgr.h" />
+    <ClInclude Include="Frameworks.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

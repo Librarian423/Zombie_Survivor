@@ -4,7 +4,6 @@ string ResourceMgr::FilePath("Resources.csv");
 
 ResourceMgr::ResourceMgr()
 {
-    //LoadAll();
 }
 
 ResourceMgr::~ResourceMgr()

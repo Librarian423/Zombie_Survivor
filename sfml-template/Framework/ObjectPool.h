@@ -1,7 +1,5 @@
 #pragma once
-#include <map>
 #include <list>
-#include <functional>
 
 template <typename T>
 class ObjectPool 
@@ -14,7 +12,7 @@ public:
 	ObjectPool();
 	~ObjectPool();
 
-	void Init(int cacheSize = 1);
+	void Init(int cacheSize = 100);
 	void Release();
 
 	void Update(float dt);
@@ -26,11 +24,11 @@ public:
 	const std::list<T*>& GetUseList();
 	const std::list<T*>& GetUnuseList();
 
-	void (*OnCreate)(T*);
+	void (*OnCreate)(T* obj);
 };
 
 template <typename T>
-ObjectPool<T>::ObjectPool()
+ObjectPool<T>::ObjectPool() : OnCreate(nullptr)
 {
 	Init();
 }
@@ -55,11 +53,6 @@ void ObjectPool<T>::Init(int cacheSize)
 			OnCreate(ptr);
 		}
 	}
-	/*for ( auto ptr : unuse )
-	{
-		ptr->Init();
-		ptr->SetActive(false);
-	}*/
 }
 
 template <typename T>
@@ -103,7 +96,7 @@ T* ObjectPool<T>::Get()
 {
 	if ( unuse.empty() )
 	{
-		for ( int i = 0; i < 10; i++ )
+		for ( int i = 0; i < use.size(); i++ )
 		{
 			T* ptr = new T();
 			ptr->Init();

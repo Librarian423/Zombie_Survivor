@@ -21,7 +21,6 @@ void Scene::Release()
 		delete obj;
 	}
 	objList.clear();
-
 }
 
 void Scene::Update(float dt)

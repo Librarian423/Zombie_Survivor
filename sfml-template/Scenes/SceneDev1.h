@@ -16,8 +16,6 @@ protected:
 	Player* player;
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
-	//SpriteObj* cursor;
-
 	ObjectPool<Bullet> bullets;
 
 public:

@@ -26,11 +26,11 @@ public:
 	static void SetOrigin(Transformable& obj, Origins origin, FloatRect rect);
 	static float Clamp(float v, float min, float max);
 
-
 	static int RandomRange(int min, int maxInclude);
 	static float RandomRange(float min, float maxInclude);
-	static float RandomRange();
-
+	static float RandomZeroToOne();
+	static Vector2f RandomInCirclePoint();
+	static Vector2f RandomOutCirclePoint();
 
 	static float SqrMagnitude(const Vector2f& vec);
 	static float Magnitude(const Vector2f& vec);
@@ -39,11 +39,6 @@ public:
 	static float Dot(const Vector2f& a, const Vector2f& b);
 	static Vector2f GetNormal(const Vector2f& vec);
 
-
 	static float Angle(const Vector2f& start, const Vector2f& end);
 	static float Angle(const Vector2f& dir);
-
-	static float RandomZeroToOne();
-	static Vector2f RandomInCirclePoint();
-	static Vector2f RandomOutCirclePoint();
 };

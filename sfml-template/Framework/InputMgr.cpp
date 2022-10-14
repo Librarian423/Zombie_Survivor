@@ -1,21 +1,11 @@
 #include "InputMgr.h"
-#include <iostream>
-#include <algorithm>
-#include <cmath>
 #include "Framework.h"
 
-//vector<Keyboard::Key>InputMgr::downList;
-//vector<Keyboard::Key>InputMgr::ingList;
-//vector<Keyboard::Key>InputMgr::upList;
 map<Axis, AxisInfo> InputMgr::axisInfoMap;
 
 list<int>InputMgr::downList;
 list<int>InputMgr::ingList;
 list<int>InputMgr::upList;
-
-//list<Mouse::Button>InputMgr::downListMouse;
-//list<Mouse::Button>InputMgr::ingListMouse;
-//list<Mouse::Button>InputMgr::upListMouse;
 
 Vector2f InputMgr::mousePos;
 
@@ -87,7 +77,6 @@ void InputMgr::ProcessInput(Event& ev)
 {
 	switch ( ev.type )
 	{
-		//int code = ev.mouseButton.button + Keyboard::KeyCount;
 	case Event::EventType::MouseButtonPressed:
 	{
 		int code = ev.mouseButton.button + Keyboard::KeyCount;
