@@ -1,0 +1,4 @@
+*.exe
+sfml-template/.vs/*
+sfml-template/x64/*
+*.pdb
