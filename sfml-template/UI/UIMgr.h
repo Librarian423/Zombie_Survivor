@@ -4,6 +4,7 @@
 
 class Scene;
 
+//È®ÀÎ¿ë
 class UIMgr :public Object
 {
 protected:
