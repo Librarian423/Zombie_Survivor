@@ -8,10 +8,6 @@
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
-#include <cmath>
-#include <iostream>
-#include <limits>
-#include <algorithm>
 
 Player::Player()
 	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), currentAmmo(10), magazineSize(10), ammo(100), fireMode(FireModes::Manual), reloadTIme(0.7f), isFire(false), semiTotal(3), reloadTimer(0.f), isReloading(false), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
@@ -276,19 +272,10 @@ void Player::OnPickupItem(Pickup* item)
 
 void Player::OnHitZombie(Zombie* zombie)
 {
-	// 체력 감소
-	//zombie->SetActive(false);
-	//cout << zombie->GetObjId() << " " << zombie->GetName() << endl;
-	//cout << hitbox.getRotation() << endl;
-	cout << hitbox.getGlobalBounds().left << ", " << hitbox.getGlobalBounds().top << endl;
-	
-	//Utils::PrintVecterState("player pos", position);
-		
-	Vector2f width;
-	Vector2f height;
-
-	Utils::PrintVecterState("width", width);
-	Utils::PrintVecterState("height", height);
+	if (Utils::OBB(hitbox, zombie->GetHitbox()))
+		cout << "충돌" << endl;
+	else
+		cout << "충돌 아님" << endl;
 }
 
 void Player::Reload()

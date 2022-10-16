@@ -44,5 +44,7 @@ public:
 	void SetType(Types t);
 	Types GetType()const;
 
+	Vector2f GetDir();
+
 	void OnHitBullet(Bullet* bullet);
 };

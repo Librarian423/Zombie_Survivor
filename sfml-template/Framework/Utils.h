@@ -41,6 +41,7 @@ public:
 
 	static float Angle(const Vector2f& start, const Vector2f& end);
 	static float Angle(const Vector2f& dir);
+	static bool OBB(const RectangleShape& obb1, const RectangleShape& obb2);
 
 	static void PrintVecterState(string name, Vector2f vec);
 };

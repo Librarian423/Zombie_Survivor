@@ -49,7 +49,7 @@ void Zombie::Update(float dt)
     }
 
     //플레이어 충돌
-    if ( GetHitbox().intersects(player->GetHitbox()) )
+    if ( hitbox.getGlobalBounds().intersects(player->GetHitbox().getGlobalBounds()) )
     {
         player->OnHitZombie(this);
     }
@@ -101,7 +101,6 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Crawler:
 	{ 
         SetTexture(*resMgr->GetTexture("graphics/crawler.png"));
-        SetHitbox({ -30.f, -122.f, 30.f, 18.f });
         SetHitbox(FloatRect(0.f, -3.f, 30.f, 22.f));
         SetName("crawler");
 	    this->speed = 20 ;
@@ -120,16 +119,17 @@ Zombie::Types Zombie::GetType() const
     return type;
 }
 
+Vector2f Zombie::GetDir()
+{
+    return dir;
+}
+
 void Zombie::Reset()
 {
     SpriteObj::Reset();
 
     dir = { 1.f,0.f };
     hp = maxHp;
-
-   /* dir = Utils::Normalize(player->GetPos() - GetPos());
-    float degree = atan2(dir.y, dir.x) * (180 / M_PI);
-    sprite.setRotation(degree);*/
     SetPos(position);
 }
 

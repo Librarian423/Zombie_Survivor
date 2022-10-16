@@ -85,7 +85,6 @@ void SceneDev1::Enter()
 	FRAMEWORK->GetWindow().setMouseCursorVisible(false);
 	FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
 	Vector2i size = FRAMEWORK->GetWindowSize();
-	//Vector2f centerPos(size.x * 0.5f, size.y * 0.5f);
 
 	worldView.setSize(size.x, size.y);
 	worldView.setCenter(0.f, 0.f);
@@ -96,7 +95,7 @@ void SceneDev1::Enter()
 	player->SetPos({ 0, 0 });
 
 	//zombie
-	CreateZombies(1);
+	CreateZombies(10);
 }
 
 void SceneDev1::Exit()

@@ -47,7 +47,7 @@ public:
 	virtual void Draw(RenderWindow& window);
 
 	virtual void SetHitbox(const FloatRect rect);
-	virtual FloatRect GetHitbox() const;
+	virtual RectangleShape GetHitbox() const;
 
 	virtual void SetDevMode(bool dev)
 	{

@@ -83,7 +83,7 @@ void Object::SetHitbox(const FloatRect rect)
 	Utils::SetOrigin(hitbox, Origins::MC);
 }
 
-FloatRect Object::GetHitbox() const
+RectangleShape Object::GetHitbox() const
 {
-	return hitbox.getGlobalBounds();
+	return hitbox;
 }

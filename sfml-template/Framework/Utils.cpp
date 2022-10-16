@@ -1,5 +1,5 @@
 #include "Utils.h"
-#include <iostream>
+#include "../3rd/OBB.h"
 
 std::random_device Utils::rd;
 std::mt19937 Utils::gen(Utils::rd());
@@ -112,7 +112,8 @@ float Utils::Angle(const Vector2f& dir)
 	return atan2(dir.y, dir.x) * (180.f / M_PI);
 }
 
-void Utils::PrintVecterState(string name, Vector2f vec)
+bool Utils::OBB(const RectangleShape& obb1, const RectangleShape& obb2)
 {
-	std::cout << name << "(" << vec.x << ", " << vec.y << ")" << std::endl;
+	Vector2f MTV;
+	return testCollision(obb1, obb2, MTV);
 }
