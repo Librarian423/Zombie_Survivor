@@ -38,10 +38,6 @@ void Sword::Update(float dt)
 	SpriteObj::Update(dt);
 
 	look = player->GetLook();
-	/*if ( bulletPool == nullptr )
-	{
-		return;
-	}*/
 
 	fireTimer += dt;
 
@@ -50,10 +46,9 @@ void Sword::Update(float dt)
 		Slash* slash = new Slash();
 		slash->SetTexture(*RESOURCE_MGR->GetTexture("graphics/sword-slash.png"));
 		slash->Init();
+		
 		Fire(slash);
 		scene->AddGameObj(slash);
-		
-		
 	}
 }
 

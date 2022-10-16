@@ -55,9 +55,6 @@ void Bullet::Update(float dt)
 	Translate(dir * this->speed * dt);
 	range -= Utils::Magnitude(dir * this->speed * dt);
 
-	/*Vector2f pos = GetSize();
-	IntRect rectSourceSprite(0, 0, pos.x / 9, pos.y);
-	sprite.setTextureRect(rectSourceSprite);*/
 	//wall bound
 	float border = 50.f;
 	FloatRect wallBound = background->GetGlobalBounds();

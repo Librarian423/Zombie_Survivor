@@ -15,7 +15,6 @@
 #include "../GameObject/Pistol.h"
 #include "../GameObject/SM.h"
 #include "../GameObject/Sword.h"
-#include "../GameObject/Slash.h"
 #include "../UI/UIDev1Mgr.h"
 
 void OnCreateBullet(Bullet* bullet)
@@ -44,7 +43,6 @@ void SceneDev1::Init()
 	uiMgr->Init();
 
 	CreateBackground(15, 26, 50.f, 50.f);
-	//CreateZombies(10);
 
 	Vector2i centerPos = FRAMEWORK->GetWindowSize() / 2;
 	background->SetPos({ 0,0 });
@@ -81,9 +79,6 @@ void SceneDev1::Init()
 	{
 		obj->Init();
 	}
-
-	
-	//player->SetActive(false);
 }
 
 void SceneDev1::Release()
@@ -109,7 +104,6 @@ void SceneDev1::Enter()
 	FRAMEWORK->GetWindow().setMouseCursorVisible(false);
 	FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
 	Vector2i size = FRAMEWORK->GetWindowSize();
-	//Vector2f centerPos(size.x * 0.5f, size.y * 0.5f);
 
 	worldView.setSize(size.x, size.y);
 	worldView.setCenter(0.f, 0.f);
@@ -139,7 +133,6 @@ void SceneDev1::Exit()
 
 	player->Reset();
 	bullets.Reset();
-	//bullet->Reset();
 	FindGameObj("ItemGenerator")->Reset();
 	 
 	uiMgr->Reset();
@@ -158,7 +151,7 @@ void SceneDev1::Update(float dt)
 		return;
 	}
 	bullets.Update(dt);
-	//bullet->Update(dt);
+	
 	switch ( player->GetFireMode() )
 	{
 	case FireModes::PISTOL:
@@ -176,8 +169,6 @@ void SceneDev1::Update(float dt)
 	}
 	
 	uiMgr->Update(dt);
-	
-	//cursor->SetPos(ScreenToWorldPos((Vector2i)InputMgr::GetMousePos()));
 }
 
 void SceneDev1::Draw(RenderWindow& window)
@@ -251,7 +242,7 @@ void SceneDev1::CreateZombies(int count)
 		Zombie* zombie = new Zombie();
 		zombie->SetType((Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes));
 		zombie->Init(player);
-		//std::cout << (int)zombie->GetType() << std::endl;
+
 		point.x = Utils::RandomRange(-1.0f, 1.0f);
 		point.y = Utils::RandomRange(-1.0f, 1.0f);
 		point = Utils::Normalize(point);
@@ -259,7 +250,6 @@ void SceneDev1::CreateZombies(int count)
 		
 		zombie->SetBackground(background);
 		zombie->SetPos(point);
-		
 		
 		objList.push_back(zombie);
 		zombies.push_back(zombie);

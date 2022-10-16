@@ -18,15 +18,12 @@ class SceneDev1 : public Scene
 {
 protected:
 	Player* player;
-	//Bullet* bullet;
 	Pistol* pistol;
 	SM* sm;
 	Sword* sword;
-	Slash* slash;
-
+	
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
-	//SpriteObj* cursor;
 
 	ObjectPool<Bullet> bullets;
 

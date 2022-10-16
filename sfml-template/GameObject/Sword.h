@@ -13,10 +13,9 @@ class Sword : public SpriteObj
 protected:
 	Player* player;
 	Scene* scene;
-	//Slash* slash;
-	//Bullet* bullet;
-	//ObjectPool<Bullet>* bulletPool;
+	
 	VertexArrayObj* background;
+	//list<Zombie*> zombies;
 
 	Vector2f look;
 

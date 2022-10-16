@@ -2,6 +2,7 @@
 #include "Zombie.h"
 #include "../Framework/Utils.h"
 #include "../GameObject/VertexArrayObj.h"
+#include "../Scenes/SceneMgr.h"
 
 Slash::Slash()
 	:speed(0), range(0.f)
@@ -31,6 +32,7 @@ void Slash::Init()
 {
 	SpriteObj::Init();
 	SetOrigin(Origins::MC);
+	//SetZombieList(Scenes::)
 }
 
 void Slash::Release()
