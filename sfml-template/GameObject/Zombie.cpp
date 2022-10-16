@@ -49,7 +49,7 @@ void Zombie::Update(float dt)
     }
 
     //플레이어 충돌
-    if ( GetGlobalBounds().intersects(player->GetHitbox()) )
+    if ( GetHitbox().intersects(player->GetHitbox()) )
     {
         player->OnHitZombie(this);
     }

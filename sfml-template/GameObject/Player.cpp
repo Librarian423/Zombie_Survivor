@@ -278,7 +278,17 @@ void Player::OnHitZombie(Zombie* zombie)
 {
 	// 체력 감소
 	//zombie->SetActive(false);
-	cout << zombie->GetObjId() << " " << zombie->GetName() << endl;
+	//cout << zombie->GetObjId() << " " << zombie->GetName() << endl;
+	//cout << hitbox.getRotation() << endl;
+	cout << hitbox.getGlobalBounds().left << ", " << hitbox.getGlobalBounds().top << endl;
+	
+	//Utils::PrintVecterState("player pos", position);
+		
+	Vector2f width;
+	Vector2f height;
+
+	Utils::PrintVecterState("width", width);
+	Utils::PrintVecterState("height", height);
 }
 
 void Player::Reload()

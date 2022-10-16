@@ -96,7 +96,7 @@ void SceneDev1::Enter()
 	player->SetPos({ 0, 0 });
 
 	//zombie
-	CreateZombies(100);
+	CreateZombies(1);
 }
 
 void SceneDev1::Exit()
@@ -123,7 +123,7 @@ void SceneDev1::Exit()
 	player->Reset();
 	bullets.Reset();
 
-	FindGameObj("ItemGenerator")->Reset();
+	//FindGameObj("ItemGenerator")->Reset();
 	 
 	uiMgr->Reset();
 }
