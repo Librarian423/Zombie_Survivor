@@ -158,13 +158,13 @@ void SceneDev1::Update(float dt)
 	bullets.Update(dt);
 	switch ( player->GetFireMode() )
 	{
-	case Player::FireModes::Manual:
+	case Player::FireModes::PISTOL:
 		pistol->Update(dt);
 		break;
-	case Player::FireModes::Auto:
+	case Player::FireModes::SUBMACHINE:
 		sm->Update(dt);
 		break;
-	case Player::FireModes::Semi:
+	case Player::FireModes::SWORD:
 		break;
 	default:
 		break;

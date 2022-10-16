@@ -16,7 +16,7 @@
 #include <algorithm>
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), fireMode(FireModes::Manual), isFire(false), semiTotal(3), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
+	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), fireMode(FireModes::PISTOL), isFire(false), semiTotal(3), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
 {
 }
 
@@ -228,18 +228,18 @@ void Player::ResetVelocity()
 
 void Player::SetShootType()
 {
-	isSemiFiring = false;
+	//isSemiFiring = false;
 	switch ( fireMode )
 	{
-	case FireModes::Manual:
-		fireMode = FireModes::Auto;
+	case FireModes::PISTOL:
+		fireMode = FireModes::SUBMACHINE;
 		break;
-	case FireModes::Auto:
-		fireMode = FireModes::Semi;
+	case FireModes::SUBMACHINE:
+		fireMode = FireModes::SWORD;
 		break;
-	case FireModes::Semi:
-		fireMode = FireModes::Manual;
-		isSemiFiring = true;
+	case FireModes::SWORD:
+		fireMode = FireModes::PISTOL;
+		//isSemiFiring = true;
 		break;
 	default:
 		break;
@@ -289,25 +289,6 @@ Player::FireModes Player::GetFireMode()
 {
 	return fireMode;
 }
-
-
-//void Player::Reload()
-//{
-//	isReloading = true;
-//	reloadTimer = 0.f;
-//
-//	int add = magazineSize - currentAmmo;
-//
-//	if ( ammo < add )
-//	{
-//		add = ammo;
-//	}
-//
-//	currentAmmo += add;
-//	ammo -= add;
-//
-//	cout << currentAmmo << " / " << magazineSize << " " << ammo << endl;
-//}
 
 
 

@@ -23,9 +23,9 @@ class Player : public SpriteObj
 public:
 	enum class FireModes
 	{
-		Manual,
-		Auto,
-		Semi,
+		PISTOL,
+		SUBMACHINE,
+		SWORD,
 	};
 protected:
 	Vector2f look;
