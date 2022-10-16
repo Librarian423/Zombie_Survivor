@@ -1,20 +1,21 @@
-#include "Weapon.h"
+#include "Pistol.h"
 #include "Bullet.h"
 #include "VertexArrayObj.h"
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
+#include <iostream>
 
-Weapon::Weapon()
+Pistol::Pistol()
 	:fireTimer(1.0f), intervalPistol(0.1f), intervalSM(0.1f), intervalSword(0.3f), type(WeaponTypes::PISTOL)
 {
 }
 
-Weapon::~Weapon()
+Pistol::~Pistol()
 {
 }
 
-void Weapon::Init(Player* player)
+void Pistol::Init(Player* player)
 {
 	this->player = player;
 	scene = SCENE_MGR->GetCurScene();
@@ -23,12 +24,12 @@ void Weapon::Init(Player* player)
 	SpriteObj::Init();
 }
 
-void Weapon::Reset()
+void Pistol::Reset()
 {
 	SpriteObj::Reset();
 }
 
-void Weapon::Update(float dt)
+void Pistol::Update(float dt)
 {
 	SpriteObj::Update(dt);
 	/*RenderWindow& window = FRAMEWORK->GetWindow();
@@ -41,30 +42,45 @@ void Weapon::Update(float dt)
 	{
 		return;
 	}
-
-	if ( InputMgr::GetMouseDown(Mouse::Button::Left) )
+	if ( InputMgr::GetKeyDown(Keyboard::Key::Num1) )
+	{
+		SetWeaponType(WeaponTypes::PISTOL);
+	}
+	if ( InputMgr::GetKeyDown(Keyboard::Key::Num2) )
+	{
+		SetWeaponType(WeaponTypes::SM);
+	}
+	if ( InputMgr::GetKeyDown(Keyboard::Key::Num3) )
+	{
+		SetWeaponType(WeaponTypes::SWORD);
+	}
+	fireTimer += dt;
+	if ( fireTimer > intervalPistol && InputMgr::GetMouseDown(Mouse::Button::Left) )
 	{
 		Fire();
 	}
 	//bulletPool = player->GetBulletPool();
 	//background = player->GetPlayerBackground();
+	std::cout << (int)type << endl;
 }
 
-void Weapon::Draw(RenderWindow& window)
+void Pistol::Draw(RenderWindow& window)
 {
 	SpriteObj::Draw(window);
 }
 
-void Weapon::Fire()
+void Pistol::Fire()
 {
 	Vector2f startPos = player->GetPosition() + look * 25.f;
 	//look = Utils::Normalize(InputMgr::GetMousePos() - startPos);
 	Bullet* bullet = bulletPool->Get();
+
 	bullet->Fire(startPos, look, 1000, 1000);
 	bullet->SetBackground(background);
 	fireTimer = 0.f;
 }
 
-void Weapon::SetWeaponType(WeaponTypes type)
+void Pistol::SetWeaponType(WeaponTypes type)
 {
+	this->type = type;
 }

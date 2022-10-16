@@ -8,7 +8,7 @@ class VertexArrayObj;
 class Zombie;
 class Scene;
 class UIMgr;
-class Weapon;
+class Pistol;
 
 
 enum class FireModes
@@ -29,7 +29,7 @@ protected:
 
 	Vector2f velocity;
 
-	Weapon* weapon;
+	Pistol* weapon;
 
 	VertexArrayObj* background;
 

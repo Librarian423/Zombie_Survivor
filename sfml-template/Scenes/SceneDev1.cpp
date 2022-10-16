@@ -12,13 +12,17 @@
 #include "../GameObject/Pickup.h"
 #include "../GameObject/VertexArrayObj.h"
 #include "../GameObject/ItemGenerator.h"
-#include "../GameObject/Weapon.h"
+#include "../GameObject/Pistol.h"
 #include "../UI/UIDev1Mgr.h"
 
 void OnCreateBullet(Bullet* bullet)
 {
 	SceneDev1* scene = (SceneDev1*)SCENE_MGR->GetScene(Scenes::Dev1);
+	/*Vector2u pos = RESOURCE_MGR->GetTexture("graphics/fire.png")->getSize();
+	IntRect rectSourceSprite(0, 0, pos.x / 9, pos.y);
+	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/fire.png"));*/
 	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/bullet.png"));
+	//bullet->SetTextureRect(rectSourceSprite);
 	bullet->SetZombieList(scene->GetZombieList());
 	bullet->Init();
 }
@@ -62,7 +66,8 @@ void SceneDev1::Init()
 	ItemGenerator* itemGen = new ItemGenerator();
 	itemGen->SetName("ItemGenerator");
 	AddGameObj(itemGen);
-	weapon = new Weapon();
+
+	weapon = new Pistol();
 	weapon->Init(player);
 	
 	//objList.push_back(uiMgr);

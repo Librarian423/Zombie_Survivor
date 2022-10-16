@@ -8,7 +8,7 @@
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
-#include "Weapon.h"
+#include "Pistol.h"
 #include <cmath>
 #include <iostream>
 #include <limits>

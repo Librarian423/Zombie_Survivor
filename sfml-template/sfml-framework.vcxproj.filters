@@ -87,7 +87,7 @@
     <ClCompile Include="UI\UIDev1Mgr.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
-    <ClCompile Include="GameObject\Weapon.cpp">
+    <ClCompile Include="GameObject\Pistol.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -170,7 +170,7 @@
     <ClInclude Include="UI\UIDev1Mgr.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
-    <ClInclude Include="GameObject\Weapon.h">
+    <ClInclude Include="GameObject\Pistol.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

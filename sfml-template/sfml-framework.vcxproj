@@ -170,7 +170,7 @@
     <ClCompile Include="GameObject\Zombie.cpp" />
     <ClCompile Include="UI\UIDev1Mgr.cpp" />
     <ClCompile Include="UI\UIMgr.cpp" />
-    <ClCompile Include="GameObject\Weapon.cpp" />
+    <ClCompile Include="GameObject\Pistol.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\rapidcsv.h" />
@@ -202,7 +202,7 @@
     <ClInclude Include="GameObject\Zombie.h" />
     <ClInclude Include="UI\UIDev1Mgr.h" />
     <ClInclude Include="UI\UIMgr.h" />
-    <ClInclude Include="GameObject\Weapon.h" />
+    <ClInclude Include="GameObject\Pistol.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

@@ -9,13 +9,13 @@ class Zombie;
 class Bullet;
 class SpriteObj;
 class Pickup;
-class Weapon;
+class Pistol;
 
 class SceneDev1 : public Scene
 {
 protected:
 	Player* player;
-	Weapon* weapon;
+	Pistol* weapon;
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
 	//SpriteObj* cursor;

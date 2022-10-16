@@ -14,7 +14,7 @@ enum class WeaponTypes
 	SWORD,
 };
 
-class Weapon : public SpriteObj
+class Pistol : public SpriteObj
 {
 protected:
 	WeaponTypes type;
@@ -33,8 +33,8 @@ protected:
 	float intervalSM;
 	float intervalSword;
 public:
-	Weapon();
-	virtual ~Weapon();
+	Pistol();
+	virtual ~Pistol();
 
 	void Init(Player* player);
 	virtual void Reset() override;
