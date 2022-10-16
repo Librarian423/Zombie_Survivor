@@ -168,6 +168,9 @@
     <ClCompile Include="Framework\SoundMgr.cpp" />
     <ClCompile Include="GameObject\VertexArrayObj.cpp" />
     <ClCompile Include="GameObject\Zombie.cpp" />
+    <ClCompile Include="Scenes\SceneTitle.cpp" />
+    <ClCompile Include="UI\UiMenuMgr.cpp" />
+    <ClCompile Include="UI\UiTitleMgr.cpp" />
     <ClCompile Include="UI\UIDev1Mgr.cpp" />
     <ClCompile Include="UI\UIMgr.cpp" />
   </ItemGroup>
@@ -199,6 +202,9 @@
     <ClInclude Include="Framework\SoundMgr.h" />
     <ClInclude Include="GameObject\VertexArrayObj.h" />
     <ClInclude Include="GameObject\Zombie.h" />
+    <ClInclude Include="Scenes\SceneTitle.h" />
+    <ClInclude Include="UI\UiMenuMgr.h" />
+    <ClInclude Include="UI\UiTitleMgr.h" />
     <ClInclude Include="UI\UIDev1Mgr.h" />
     <ClInclude Include="UI\UIMgr.h" />
   </ItemGroup>

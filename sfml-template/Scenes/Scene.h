@@ -10,6 +10,9 @@ class UIMgr;
 
 enum class Scenes
 {
+	Title,
+	Menu,
+	Game,
 	Dev1,
 	Dev2,
 };

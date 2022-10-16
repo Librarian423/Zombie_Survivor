@@ -28,6 +28,11 @@ void TextObj::SetPos(const Vector2f& pos)
 	text.setPosition(pos);
 }
 
+void TextObj::SetOrigin(Origins origin)
+{
+	Utils::SetOrigin(text, origin);
+}
+
 const string& TextObj::GetText() const
 {
 	return text.getString();

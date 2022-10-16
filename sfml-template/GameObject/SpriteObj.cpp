@@ -18,6 +18,11 @@ void SpriteObj::SetTexture(Texture& tex)
 	sprite.setTexture(tex);
 }
 
+void SpriteObj::SetScale(float x, float y)
+{
+	sprite.setScale(x,y);
+}
+
 void SpriteObj::SetOrigin(Origins origin)
 {
 	Utils::SetOrigin(sprite, origin);

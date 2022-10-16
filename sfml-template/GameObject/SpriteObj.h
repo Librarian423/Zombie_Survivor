@@ -15,6 +15,7 @@ public:
 
 	void SetTexture(Texture& tex);
 	void SetOrigin(Origins origin);
+	void SetScale(float x, float y);
 	
 	void SetTextureRect(const IntRect& rect);
 	const IntRect& GetTextureRect() const;
