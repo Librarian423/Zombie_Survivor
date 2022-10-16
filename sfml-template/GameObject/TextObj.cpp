@@ -28,6 +28,16 @@ void TextObj::SetPos(const Vector2f& pos)
 	text.setPosition(pos);
 }
 
+void TextObj::SetColor(Color color)
+{
+	text.setFillColor(color);
+}
+
+FloatRect TextObj::GetGlobalBounds()
+{
+	return text.getGlobalBounds();
+}
+
 void TextObj::SetOrigin(Origins origin)
 {
 	Utils::SetOrigin(text, origin);

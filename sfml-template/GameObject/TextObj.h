@@ -20,6 +20,8 @@ public:
 	void SetFont(Font& font);
 	void SetText(string text);
 	void SetPos(const Vector2f& pos);
+	void SetColor(Color color);
+	FloatRect GetGlobalBounds();
 	void SetOrigin(Origins origin);
 	const string& GetText() const;
 };

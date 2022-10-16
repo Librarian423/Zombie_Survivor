@@ -159,6 +159,7 @@
     <ClCompile Include="main.cpp" />
     <ClCompile Include="GameObject\Object.cpp" />
     <ClCompile Include="GameObject\Pickup.cpp" />
+    <ClCompile Include="Scenes\SceneMenu.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="Scenes\SceneDev2.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
@@ -193,6 +194,7 @@
     <ClInclude Include="GameObject\Player.h" />
     <ClInclude Include="GameObject\Pickup.h" />
     <ClInclude Include="GameObject\ItemGenerator.h" />
+    <ClInclude Include="Scenes\SceneMenu.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Scenes\SceneDev2.h" />
     <ClInclude Include="Scenes\Scene.h" />

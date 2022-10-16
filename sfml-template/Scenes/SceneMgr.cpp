@@ -2,11 +2,13 @@
 #include "SceneDev1.h"
 #include "SceneDev2.h"
 #include "SceneTitle.h"
+#include "SceneMenu.h"
 
 
 bool SceneMgr::Init()
 {
     sceneMap[Scenes::Title] = new SceneTitle();
+    sceneMap[Scenes::Menu] = new SceneMenu();
     sceneMap[Scenes::Dev1] = new SceneDev1();
     sceneMap[Scenes::Dev2] = new SceneDev2();
 

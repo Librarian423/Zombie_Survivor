@@ -71,5 +71,6 @@ void UiTitleMgr::Update(float dt)
 
 void UiTitleMgr::Draw(RenderWindow& window)
 {
+	window.setView(parentScene->GetUiView());
 	UIMgr::Draw(window);
 }

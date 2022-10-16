@@ -3,6 +3,8 @@ Title_Title,Zombie Survivor
 Title_Guide,Please press the space bar.
 Menu_Game,Game Start
 Menu_Language,Language
+Menu_Korean,Korean
+Menu_English,English
 GAME_Menu,
 GAME_Restart,
 GAME_VolumeUp,

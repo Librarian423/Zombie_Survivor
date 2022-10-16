@@ -32,7 +32,7 @@ public:
 	void SetName(const string& n) { name = n; }
 
 	virtual void SetActive(bool active);
-	virtual bool GetActive() const;
+	virtual bool GetActive();
 
 	virtual void Init();
 	virtual void Release();

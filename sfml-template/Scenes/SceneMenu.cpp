@@ -1,28 +1,29 @@
-#include "SceneTitle.h"
+#include "SceneMenu.h"
 #include "SceneMgr.h"
 #include "../Framework/InputMgr.h"
 #include "../Framework/ResourceMgr.h"
 #include "../Framework/Framework.h"
-#include "../UI/UiTitleMgr.h"
+#include "../UI/UiMenuMgr.h"
 
-SceneTitle::SceneTitle()
-	:Scene(Scenes::Title)
+
+SceneMenu::SceneMenu()
+	:Scene(Scenes::Menu)
 {
 }
 
-SceneTitle::~SceneTitle()
+SceneMenu::~SceneMenu()
 {
 }
 
-void SceneTitle::Init()
+void SceneMenu::Init()
 {
 	Release();
 
-	uiMgr = new UiTitleMgr(this);
+	uiMgr = new UiMenuMgr(this);
 	uiMgr->Init();
 }
 
-void SceneTitle::Release()
+void SceneMenu::Release()
 {
 	if (uiMgr != nullptr)
 	{
@@ -33,7 +34,7 @@ void SceneTitle::Release()
 	Scene::Release();
 }
 
-void SceneTitle::Enter()
+void SceneMenu::Enter()
 {
 	//FRAMEWORK->GetWindow().setMouseCursorVisible(false);
 	//FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
@@ -46,24 +47,24 @@ void SceneTitle::Enter()
 	uiView.setCenter(size.x * 0.5f, size.y * 0.5f);
 }
 
-void SceneTitle::Exit()
+void SceneMenu::Exit()
 {
 	//FRAMEWORK->GetWindow().setMouseCursorVisible(true);
 	uiMgr->Reset();
 }
 
-void SceneTitle::Update(float dt)
+void SceneMenu::Update(float dt)
 {
+	Scene::Update(dt);
 	if (InputMgr::GetKeyDown(Keyboard::Space))
 	{
-		SCENE_MGR->ChangeScene(Scenes::Menu);
+		SCENE_MGR->ChangeScene(Scenes::Dev1);
 	}
-	Scene::Update(dt);
 
 	uiMgr->Update(dt);
 }
 
-void SceneTitle::Draw(RenderWindow& window)
+void SceneMenu::Draw(RenderWindow& window)
 {
 	Scene::Draw(window);
 	window.setView(worldView);
