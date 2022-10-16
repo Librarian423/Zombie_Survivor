@@ -29,5 +29,4 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
-
 };

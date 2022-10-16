@@ -10,7 +10,7 @@
 #include "../UI/UIDev1Mgr.h"
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), currentAmmo(10), magazineSize(10), ammo(100), fireMode(FireModes::Manual), reloadTIme(0.7f), isFire(false), semiTotal(3), reloadTimer(0.f), isReloading(false), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
+	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), currentAmmo(10), magazineSize(10), ammo(100), fireMode(FireModes::Manual), reloadTIme(0.7f), isFire(false), semiTotal(3), reloadTimer(0.f), isReloading(false), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0), exp(0.f)
 {
 }
 
@@ -33,6 +33,10 @@ void Player::Init()
 	SetOrigin(Origins::MC);
 	SpriteObj::Init();
 
+	level = 1;
+	exp = 0.f;
+	SetStatData(level);
+
 	scene = SCENE_MGR->GetCurScene();
 	uiMgr = scene->GetUIMgr();
 }
@@ -41,6 +45,9 @@ void Player::Reset()
 {
 	direction = { 1.f,0.f };
 	velocity = { 0.f,0.f };
+	level = 1;
+	exp = 0.f;
+	SetStatData(level);
 	ResetAmo();
 }
 
@@ -61,8 +68,8 @@ void Player::Update(float dt)
 	sprite.setRotation(Utils::Angle(look));
 	hitbox.setRotation(Utils::Angle(look));
 
-	direction.x = InputMgr::GetAxisRaw(Axis::Horizontal);
-	direction.y = InputMgr::GetAxisRaw(Axis::Vertical);
+	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
 	
 	//가속
 	velocity += direction * accelation * dt;
@@ -154,12 +161,21 @@ void Player::Update(float dt)
 		Reload();
 	}
 
+	// test
+	if (InputMgr::GetKeyDown(Keyboard::P))
+	{
+		cout << "level: " << level << endl <<
+			"requireExp: " << requireExp << endl <<
+			"health: " << health << endl <<
+			"damage: " << damage << endl <<
+			"exp: " << exp << endl;
+	}
+
 	if ( InputMgr::GetMouseDown(Mouse::Button::Right) )
 	{
 		SetShootType();
 		fireTimer = numeric_limits<float>::max();
 	}
-
 
 	switch ( fireMode )
 	{
@@ -202,6 +218,21 @@ void Player::Update(float dt)
 		}
 		break;
 	}
+	}
+
+	// die
+	if (health <= 0.f)
+	{
+		cout << "die" << endl;
+	}
+
+	// level up
+	if (exp >= requireExp)
+	{
+		level++;
+		SetStatData(level);
+		exp -= requireExp;
+		cout << "level up!! " << level << endl;
 	}
 }
 
@@ -273,9 +304,14 @@ void Player::OnPickupItem(Pickup* item)
 void Player::OnHitZombie(Zombie* zombie)
 {
 	if (Utils::OBB(hitbox, zombie->GetHitbox()))
-		cout << "충돌" << endl;
+	{
+		cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
+		SetHealth(-FRAMEWORK->GetRealDT() * 10.f * zombie->GetDamage());
+	}
 	else
-		cout << "충돌 아님" << endl;
+	{
+		cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;
+	}
 }
 
 void Player::Reload()

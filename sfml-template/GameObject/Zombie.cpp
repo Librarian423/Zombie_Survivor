@@ -86,7 +86,8 @@ void Zombie::SetType(Types t)
         SetHitbox(FloatRect(0.f, 0.f, 40.f, 45.f));
         SetName("bloater");
 	    this->speed = 40 ;
-        maxHp = 100.f;
+        maxHp = 50.f;
+        damage = 10.f;
 	    break;
 	}
 	case Zombie::Types::Chaser:
@@ -95,23 +96,24 @@ void Zombie::SetType(Types t)
         SetHitbox(FloatRect(0.f, 0.f, 20.f, 30.f));
         SetName("chaser");
 	    this->speed = 70 ;
-        maxHp = 75.f;
+        maxHp = 20.f;
+        damage = 5.f;
 	    break;
 	}
 	case Zombie::Types::Crawler:
 	{ 
         SetTexture(*resMgr->GetTexture("graphics/crawler.png"));
-        SetHitbox(FloatRect(0.f, -3.f, 30.f, 22.f));
+        SetHitbox(FloatRect(0.f, 0.f, 30.f, 22.f));
         SetName("crawler");
 	    this->speed = 20 ;
-        maxHp = 50.f;
+        maxHp = 10.f;
+        damage = 2.f;
 	    break;
 	}
 	default:
         break;
     }
-
-    //SetPos(position);
+    health = maxHp;
 }
 
 Zombie::Types Zombie::GetType() const
@@ -129,11 +131,18 @@ void Zombie::Reset()
     SpriteObj::Reset();
 
     dir = { 1.f,0.f };
-    hp = maxHp;
+    health = maxHp;
     SetPos(position);
 }
 
 void Zombie::OnHitBullet(Bullet* bullet)
 {
-    SetActive(false);
+    SetHealth(-player->GetDamage());
+
+    if (health <= 0.001f)
+    {
+        // 경험치 아이템을 드랍하게 하고, 드랍한 아이템을 획득하면 경험치를 획득하게 함
+        player->SetExp(maxHp);
+        SetActive(false);
+    }
 }

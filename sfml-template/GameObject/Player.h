@@ -1,6 +1,7 @@
 #pragma once
 #include "SpriteObj.h"
 #include "../Framework/ObjectPool.h"
+#include "PlayerStatTable.h"
 
 class Bullet;
 class Pickup;
@@ -54,6 +55,14 @@ protected:
 
 	FireModes fireMode;
 
+	// stats
+	PlayerStatTable pst;
+	int level;
+	float requireExp;
+	float health;
+	float damage;
+	float exp;
+
 public:
 	Player();
 	virtual ~Player();
@@ -77,4 +86,14 @@ public:
 	
 	void OnPickupItem(Pickup* item);
 	void OnHitZombie(Zombie* zombie);
+
+	void SetHealth(float delta) { health += delta; }
+	float GetDamage() const { return damage; }
+	void SetExp(float delta) { exp += delta; }
+	void SetStatData(int idx)
+	{
+		requireExp = pst.LoadReqExp(idx);
+		health = pst.LoadHealth(idx);
+		damage = pst.LoadDamage(idx);
+	}
 };

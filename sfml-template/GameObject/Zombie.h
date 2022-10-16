@@ -23,8 +23,9 @@ protected:
 	Vector2f dir;
 	float speed;
 
-	int maxHp;
-	int hp;
+	float maxHp;
+	float health;
+	float damage;
 
 	Player* player;
 
@@ -47,4 +48,7 @@ public:
 	Vector2f GetDir();
 
 	void OnHitBullet(Bullet* bullet);
+
+	void SetHealth(float delta) { health = health + delta; }
+	float GetDamage() const { return damage; }
 };
