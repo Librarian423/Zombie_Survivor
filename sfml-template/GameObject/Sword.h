@@ -6,12 +6,14 @@ class Bullet;
 class VertexArrayObj;
 class Scene;
 class Player;
+class Slash;
 
 class Sword : public SpriteObj
 {
 protected:
 	Player* player;
 	Scene* scene;
+	//Slash* slash;
 	//Bullet* bullet;
 	//ObjectPool<Bullet>* bulletPool;
 	VertexArrayObj* background;
@@ -30,5 +32,5 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	void Fire();
+	void Fire(Slash* slash);
 };

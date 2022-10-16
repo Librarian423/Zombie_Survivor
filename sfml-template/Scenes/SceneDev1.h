@@ -12,6 +12,7 @@ class Pickup;
 class Pistol;
 class SM;
 class Sword;
+class Slash;
 
 class SceneDev1 : public Scene
 {
@@ -21,6 +22,8 @@ protected:
 	Pistol* pistol;
 	SM* sm;
 	Sword* sword;
+	Slash* slash;
+
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
 	//SpriteObj* cursor;

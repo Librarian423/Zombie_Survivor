@@ -15,6 +15,7 @@
 #include "../GameObject/Pistol.h"
 #include "../GameObject/SM.h"
 #include "../GameObject/Sword.h"
+#include "../GameObject/Slash.h"
 #include "../UI/UIDev1Mgr.h"
 
 void OnCreateBullet(Bullet* bullet)
@@ -74,7 +75,7 @@ void SceneDev1::Init()
 
 	sword = new Sword();
 	sword->Init(player);
-
+	
 	//objList.push_back(uiMgr);
 	for ( auto obj : objList )
 	{
@@ -167,6 +168,7 @@ void SceneDev1::Update(float dt)
 		sm->Update(dt);
 		break;
 	case FireModes::SWORD:
+		
 		sword->Update(dt);
 		break;
 	default:

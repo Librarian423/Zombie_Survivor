@@ -4,6 +4,7 @@
 class Player;
 class Bullet;
 class VertexArrayObj;
+class Slash;
 
 class Zombie : public SpriteObj
 {
@@ -45,5 +46,6 @@ public:
 	Types GetType()const;
 
 	void OnHitBullet(Bullet* bullet);
+	void OnHitSlash(Slash* slash);
 };
 

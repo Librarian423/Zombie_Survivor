@@ -131,3 +131,8 @@ void Zombie::OnHitBullet(Bullet* bullet)
 {
     SetActive(false);
 }
+
+void Zombie::OnHitSlash(Slash* slash)
+{
+    SetActive(false);
+}
