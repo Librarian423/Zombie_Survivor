@@ -32,17 +32,13 @@ void Pistol::Reset()
 void Pistol::Update(float dt)
 {
 	SpriteObj::Update(dt);
-	/*RenderWindow& window = FRAMEWORK->GetWindow();
-	Vector2i mousePos = (Vector2i)InputMgr::GetMousePos();
-	Vector2f mouseWorldPos = scene->ScreenToWorldPos(mousePos);
-
-	look = Utils::Normalize(mouseWorldPos - GetPos());*/
+	
 	look = player->GetLook();
 	if ( bulletPool == nullptr )
 	{
 		return;
 	}
-	if ( InputMgr::GetKeyDown(Keyboard::Key::Num1) )
+	/*if ( InputMgr::GetKeyDown(Keyboard::Key::Num1) )
 	{
 		SetWeaponType(WeaponTypes::PISTOL);
 	}
@@ -53,15 +49,12 @@ void Pistol::Update(float dt)
 	if ( InputMgr::GetKeyDown(Keyboard::Key::Num3) )
 	{
 		SetWeaponType(WeaponTypes::SWORD);
-	}
+	}*/
 	fireTimer += dt;
 	if ( fireTimer > intervalPistol && InputMgr::GetMouseDown(Mouse::Button::Left) )
 	{
 		Fire();
 	}
-	//bulletPool = player->GetBulletPool();
-	//background = player->GetPlayerBackground();
-	std::cout << (int)type << endl;
 }
 
 void Pistol::Draw(RenderWindow& window)
@@ -72,9 +65,7 @@ void Pistol::Draw(RenderWindow& window)
 void Pistol::Fire()
 {
 	Vector2f startPos = player->GetPosition() + look * 25.f;
-	//look = Utils::Normalize(InputMgr::GetMousePos() - startPos);
 	Bullet* bullet = bulletPool->Get();
-
 	bullet->Fire(startPos, look, 1000, 1000);
 	bullet->SetBackground(background);
 	fireTimer = 0.f;

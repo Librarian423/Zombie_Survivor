@@ -11,15 +11,22 @@ class UIMgr;
 class Pistol;
 
 
-enum class FireModes
-{
-	Manual,
-	Auto,
-	Semi,
-};
+//enum class FireModes
+//{
+//	Manual,
+//	Auto,
+//	Semi,
+//};
 
 class Player : public SpriteObj
 {
+public:
+	enum class FireModes
+	{
+		Manual,
+		Auto,
+		Semi,
+	};
 protected:
 	Vector2f look;
 	Vector2f direction; //이동방향 , 단위 벡터
@@ -86,5 +93,6 @@ public:
 	ObjectPool<Bullet>* GetBulletPool();
 	Vector2f GetPosition();
 	Vector2f GetLook();
+	FireModes GetFireMode();
 };
 

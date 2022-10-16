@@ -9,6 +9,7 @@
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
 #include "Pistol.h"
+#include "SM.h"
 #include <cmath>
 #include <iostream>
 #include <limits>
@@ -150,7 +151,8 @@ void Player::Update(float dt)
 	//weapon->SetBulletPool(bulletPool);
 	/*if ( InputMgr::GetMouseDown(Mouse::Button::Left) )
 	{
-		Fire();
+		SM sm;
+		sm.Fire();
 	}*/
 
 	/*switch ( fireMode )
@@ -282,6 +284,12 @@ Vector2f Player::GetLook()
 {
 	return look;
 }
+
+Player::FireModes Player::GetFireMode()
+{
+	return fireMode;
+}
+
 
 //void Player::Reload()
 //{

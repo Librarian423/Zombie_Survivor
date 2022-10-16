@@ -3,22 +3,11 @@
 #include "Object.h"
 #include "../Framework/ObjectPool.h"
 
-class Bullet;
-class VertexArrayObj;
-class Scene;
-
-enum class WeaponTypes
-{
-	PISTOL,
-	SM,
-	SWORD,
-};
-
-class Pistol : public SpriteObj
+class SM : public SpriteObj
 {
 protected:
-	WeaponTypes type;
-	
+	//WeaponTypes type;
+
 	Player* player;
 	Scene* scene;
 
@@ -28,21 +17,18 @@ protected:
 	Vector2f look;
 
 	float fireTimer;
-
-	float intervalPistol;
 	float intervalSM;
-	float intervalSword;
+	
 public:
-	Pistol();
-	virtual ~Pistol();
+	SM();
+	virtual ~SM();
 
 	void Init(Player* player);
 	virtual void Reset() override;
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	virtual void Fire();
-	void SetWeaponType(WeaponTypes type);
-	
+	void Fire();
+	//void SetWeaponType(WeaponTypes type);
 };
 

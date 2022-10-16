@@ -13,6 +13,7 @@
 #include "../GameObject/VertexArrayObj.h"
 #include "../GameObject/ItemGenerator.h"
 #include "../GameObject/Pistol.h"
+#include "../GameObject/SM.h"
 #include "../UI/UIDev1Mgr.h"
 
 void OnCreateBullet(Bullet* bullet)
@@ -67,9 +68,13 @@ void SceneDev1::Init()
 	itemGen->SetName("ItemGenerator");
 	AddGameObj(itemGen);
 
-	weapon = new Pistol();
-	weapon->Init(player);
-	
+	//weapon
+	pistol = new Pistol();
+	pistol->Init(player);
+
+	sm = new SM();
+	sm->Init(player);
+
 	//objList.push_back(uiMgr);
 	for ( auto obj : objList )
 	{
@@ -92,7 +97,8 @@ void SceneDev1::Release()
 
 	Scene::Release();
 	player = nullptr;
-	weapon = nullptr;
+	pistol = nullptr;
+	sm = nullptr;
 }
 
 void SceneDev1::Enter()
@@ -150,7 +156,20 @@ void SceneDev1::Update(float dt)
 		return;
 	}
 	bullets.Update(dt);
-	weapon->Update(dt);
+	switch ( player->GetFireMode() )
+	{
+	case Player::FireModes::Manual:
+		pistol->Update(dt);
+		break;
+	case Player::FireModes::Auto:
+		sm->Update(dt);
+		break;
+	case Player::FireModes::Semi:
+		break;
+	default:
+		break;
+	}
+	
 	uiMgr->Update(dt);
 	
 	//cursor->SetPos(ScreenToWorldPos((Vector2i)InputMgr::GetMousePos()));
