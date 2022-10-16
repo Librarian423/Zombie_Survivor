@@ -8,6 +8,8 @@ class VertexArrayObj;
 class Zombie;
 class Scene;
 class UIMgr;
+class Weapon;
+
 
 enum class FireModes
 {
@@ -27,6 +29,8 @@ protected:
 
 	Vector2f velocity;
 
+	Weapon* weapon;
+
 	VertexArrayObj* background;
 
 	ObjectPool<Bullet>* bulletPool;
@@ -34,13 +38,13 @@ protected:
 	Scene* scene;
 	UIMgr* uiMgr;
 
-	int magazineSize;
-	int ammo;
-	int currentAmmo;
+	//int magazineSize;
+	//int ammo;
+	//int currentAmmo;
 
-	bool isReloading;
-	float reloadTIme;
-	float reloadTimer;
+	//bool isReloading;
+	//float reloadTIme;
+	//float reloadTimer;
 	float fireTimer;
 
 	float intervalManual;
@@ -69,13 +73,18 @@ public:
 	virtual void Draw(RenderWindow& window) override;
 	
 	void Fire();
-	void Reload();
+	//void Reload();
 
 	void ResetVelocity();
-	void ResetAmo();
+	//void ResetAmo();
 	void SetShootType();
 	
 	void OnPickupItem(Pickup* item);
 	void OnHitZombie(Zombie* zombie);
+
+	VertexArrayObj* GetPlayerBackground();
+	ObjectPool<Bullet>* GetBulletPool();
+	Vector2f GetPosition();
+	Vector2f GetLook();
 };
 

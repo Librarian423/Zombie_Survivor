@@ -8,13 +8,14 @@
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
+#include "Weapon.h"
 #include <cmath>
 #include <iostream>
 #include <limits>
 #include <algorithm>
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), currentAmmo(10), magazineSize(10), ammo(100), fireMode(FireModes::Manual), reloadTIme(0.7f), isFire(false), semiTotal(3), reloadTimer(0.f), isReloading(false), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
+	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), fireMode(FireModes::Manual), isFire(false), semiTotal(3), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
 {
 }
 
@@ -25,6 +26,7 @@ Player::~Player()
 void Player::SetBulletPool(ObjectPool<Bullet>* ptr)
 {
 	bulletPool = ptr;
+	//weapon->SetBulletPool(bulletPool);
 }
 
 void Player::SetBackground(VertexArrayObj* bk)
@@ -39,13 +41,15 @@ void Player::Init()
 
 	scene = SCENE_MGR->GetCurScene();
 	uiMgr = scene->GetUIMgr();
+	
+	//weapon = new Weapon();
 }
 
 void Player::Reset()
 {
 	direction = { 1.f,0.f };
 	velocity = { 0.f,0.f };
-	ResetAmo();
+	//ResetAmo();
 }
 
 void Player::Update(float dt)
@@ -62,6 +66,7 @@ void Player::Update(float dt)
 	Vector2f mouseWorldPos = scene->ScreenToWorldPos(mousePos);
 
 	look = Utils::Normalize(mouseWorldPos - GetPos());
+	
 	float degree = atan2(look.y, look.x) * (180.f / M_PI);
 	sprite.setRotation(degree);
 
@@ -126,40 +131,29 @@ void Player::Update(float dt)
 		ResetVelocity();
 	}
 
-	if ( bulletPool == nullptr )
+	if ( bulletPool == nullptr ) 
 	{
 		return;
 	}
 
 	fireTimer += dt;
 
-	if ( isReloading )
-	{
-		reloadTimer += dt;
-		if ( reloadTimer > reloadTIme )
-		{
-			isReloading = false;
-			reloadTimer = 0.f;
-		}
-		else
-		{
-			return;
-		}
-	}
-
-	if ( InputMgr::GetKeyDown(Keyboard::R) )
-	{
-		Reload();
-	}
 
 	if ( InputMgr::GetMouseDown(Mouse::Button::Right) )
 	{
 		SetShootType();
 		fireTimer = numeric_limits<float>::max();
 	}
+	//weapon->Update(dt);
+	//weapon->SetLook(look);
+	//weapon->SetBackground(background);
+	//weapon->SetBulletPool(bulletPool);
+	/*if ( InputMgr::GetMouseDown(Mouse::Button::Left) )
+	{
+		Fire();
+	}*/
 
-
-	switch ( fireMode )
+	/*switch ( fireMode )
 	{
 	case FireModes::Manual:
 	{
@@ -187,7 +181,7 @@ void Player::Update(float dt)
 				isSemiFiring = true;
 			}
 			semiCount++;
-			if ( semiCount <= semiTotal && currentAmmo > 0 )
+			if ( semiCount <= semiTotal )
 			{
 				Fire();
 			}
@@ -200,7 +194,7 @@ void Player::Update(float dt)
 		}
 		break;
 	}
-	}
+	}*/
 }
 
 void Player::Draw(RenderWindow& window)
@@ -210,16 +204,11 @@ void Player::Draw(RenderWindow& window)
 
 void Player::Fire()
 {
-	if ( currentAmmo == 0 )
-	{
-		return; 
-	}
 	Vector2f startPos = position + look * 25.f;
 	//look = Utils::Normalize(InputMgr::GetMousePos() - startPos);
 	Bullet* bullet = bulletPool->Get();
 	bullet->Fire(startPos, look, 1000, 1000);
 	bullet->SetBackground(background);
-	currentAmmo--;
 	fireTimer = 0.f;
 }
 
@@ -228,12 +217,12 @@ void Player::ResetVelocity()
 	velocity = Vector2f(0, 0);
 }
 
-void Player::ResetAmo()
-{
-	ammo = 100;
-	currentAmmo = 10;
-	magazineSize = 10;
-}
+//void Player::ResetAmo()
+//{
+//	ammo = 100;
+//	currentAmmo = 10;
+//	magazineSize = 10;
+//}
 
 void Player::SetShootType()
 {
@@ -261,7 +250,7 @@ void Player::OnPickupItem(Pickup* item)
 	switch ( item->GetType() )
 	{
 	case Pickup::Types::Ammo:
-		ammo += item->GetValue();
+		//ammo += item->GetValue();
 		break;
 	case Pickup::Types::Health:
 		//hp increase
@@ -274,23 +263,43 @@ void Player::OnHitZombie(Zombie* zombie)
 	zombie->SetActive(false);
 }
 
-void Player::Reload()
+VertexArrayObj* Player::GetPlayerBackground()
 {
-	isReloading = true;
-	reloadTimer = 0.f;
-
-	int add = magazineSize - currentAmmo;
-
-	if ( ammo < add )
-	{
-		add = ammo;
-	}
-
-	currentAmmo += add;
-	ammo -= add;
-
-	cout << currentAmmo << " / " << magazineSize << " " << ammo << endl;
+	return background;
 }
+
+ObjectPool<Bullet>* Player::GetBulletPool()
+{
+	return bulletPool;
+}
+
+Vector2f Player::GetPosition()
+{
+	return position;
+}
+
+Vector2f Player::GetLook()
+{
+	return look;
+}
+
+//void Player::Reload()
+//{
+//	isReloading = true;
+//	reloadTimer = 0.f;
+//
+//	int add = magazineSize - currentAmmo;
+//
+//	if ( ammo < add )
+//	{
+//		add = ammo;
+//	}
+//
+//	currentAmmo += add;
+//	ammo -= add;
+//
+//	cout << currentAmmo << " / " << magazineSize << " " << ammo << endl;
+//}
 
 
 

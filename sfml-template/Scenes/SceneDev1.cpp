@@ -12,6 +12,7 @@
 #include "../GameObject/Pickup.h"
 #include "../GameObject/VertexArrayObj.h"
 #include "../GameObject/ItemGenerator.h"
+#include "../GameObject/Weapon.h"
 #include "../UI/UIDev1Mgr.h"
 
 void OnCreateBullet(Bullet* bullet)
@@ -61,7 +62,8 @@ void SceneDev1::Init()
 	ItemGenerator* itemGen = new ItemGenerator();
 	itemGen->SetName("ItemGenerator");
 	AddGameObj(itemGen);
-
+	weapon = new Weapon();
+	weapon->Init(player);
 	
 	//objList.push_back(uiMgr);
 	for ( auto obj : objList )
@@ -85,6 +87,7 @@ void SceneDev1::Release()
 
 	Scene::Release();
 	player = nullptr;
+	weapon = nullptr;
 }
 
 void SceneDev1::Enter()
@@ -106,10 +109,6 @@ void SceneDev1::Enter()
 	//zombie
 	CreateZombies(100);
 
-	//item
-	//CreateItems();
-
-	//cursor->SetPos(ScreenToWorldPos((Vector2i)InputMgr::GetMousePos()));
 }
 
 void SceneDev1::Exit()
@@ -125,14 +124,6 @@ void SceneDev1::Exit()
 		it = zombies.erase(it);
 	}
 
-	/*auto itemIt = items.begin();
-	while ( itemIt != items.end() )
-	{
-		objList.remove(*itemIt);
-		delete* itemIt;
-
-		itemIt = items.erase(itemIt);
-	}*/
 	player->Reset();
 	bullets.Reset();
 
@@ -154,8 +145,9 @@ void SceneDev1::Update(float dt)
 		return;
 	}
 	bullets.Update(dt);
-
+	weapon->Update(dt);
 	uiMgr->Update(dt);
+	
 	//cursor->SetPos(ScreenToWorldPos((Vector2i)InputMgr::GetMousePos()));
 }
 
