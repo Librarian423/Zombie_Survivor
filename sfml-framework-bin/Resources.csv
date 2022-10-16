@@ -13,6 +13,8 @@ graphics/health_pickup.png,0
 graphics/player.png,0
 graphics/bullet.png,0
 fonts/zombiecontrol.ttf,1
+fonts/NotoSansKR-Bold.otf,1
+fonts/NanumGangInHanWiRo.ttf,1
 sound/hit.wav,2
 sound/pickup.wav,2
 sound/powerup.wav,2
