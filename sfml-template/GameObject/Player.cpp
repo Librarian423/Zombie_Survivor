@@ -16,7 +16,7 @@
 #include <algorithm>
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), fireMode(FireModes::PISTOL), isFire(false), semiTotal(3), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0)
+	:speed(500), accelation(1000), deaccelation(1000),  fireMode(FireModes::PISTOL)//,bulletPool(nullptr)
 {
 }
 
@@ -27,7 +27,6 @@ Player::~Player()
 void Player::SetBulletPool(ObjectPool<Bullet>* ptr)
 {
 	bulletPool = ptr;
-	//weapon->SetBulletPool(bulletPool);
 }
 
 void Player::SetBackground(VertexArrayObj* bk)
@@ -42,23 +41,20 @@ void Player::Init()
 
 	scene = SCENE_MGR->GetCurScene();
 	uiMgr = scene->GetUIMgr();
-	
-	//weapon = new Weapon();
 }
 
 void Player::Reset()
 {
 	direction = { 1.f,0.f };
 	velocity = { 0.f,0.f };
-	//ResetAmo();
 }
 
 void Player::Update(float dt)
 {	
-	if ( InputMgr::GetKeyDown(Keyboard::Key::B) )
+	/*if ( InputMgr::GetKeyDown(Keyboard::Key::B) )
 	{
 		((UIDev1Mgr*)uiMgr)->SetScore(Utils::RandomRange(0, 10000));
-	}
+	}*/
 
 	SpriteObj::Update(dt);
 
@@ -80,6 +76,7 @@ void Player::Update(float dt)
 	{
 		velocity = Utils::Normalize(velocity) * speed;
 	}
+
 	//°¨¼Ó
 	if ( direction.x == 0.f )
 	{
@@ -132,29 +129,18 @@ void Player::Update(float dt)
 		ResetVelocity();
 	}
 
+	//bullet->Update(dt);
+
 	if ( bulletPool == nullptr ) 
 	{
 		return;
 	}
 
-	fireTimer += dt;
-
-
 	if ( InputMgr::GetMouseDown(Mouse::Button::Right) )
 	{
 		SetShootType();
-		fireTimer = numeric_limits<float>::max();
+		//fireTimer = numeric_limits<float>::max();
 	}
-	//weapon->Update(dt);
-	//weapon->SetLook(look);
-	//weapon->SetBackground(background);
-	//weapon->SetBulletPool(bulletPool);
-	/*if ( InputMgr::GetMouseDown(Mouse::Button::Left) )
-	{
-		SM sm;
-		sm.Fire();
-	}*/
-
 	/*switch ( fireMode )
 	{
 	case FireModes::Manual:
@@ -204,31 +190,22 @@ void Player::Draw(RenderWindow& window)
 	SpriteObj::Draw(window);
 }
 
-void Player::Fire()
-{
-	Vector2f startPos = position + look * 25.f;
-	//look = Utils::Normalize(InputMgr::GetMousePos() - startPos);
-	Bullet* bullet = bulletPool->Get();
-	bullet->Fire(startPos, look, 1000, 1000);
-	bullet->SetBackground(background);
-	fireTimer = 0.f;
-}
+//void Player::Fire()
+//{
+//	Vector2f startPos = position + look * 25.f;
+//	Bullet* bullet = bulletPool->Get();
+//	bullet->Fire(startPos, look, 1000, 1000);
+//	bullet->SetBackground(background);
+//	//fireTimer = 0.f;
+//}
 
 void Player::ResetVelocity()
 {
 	velocity = Vector2f(0, 0);
 }
 
-//void Player::ResetAmo()
-//{
-//	ammo = 100;
-//	currentAmmo = 10;
-//	magazineSize = 10;
-//}
-
 void Player::SetShootType()
 {
-	//isSemiFiring = false;
 	switch ( fireMode )
 	{
 	case FireModes::PISTOL:
@@ -239,7 +216,6 @@ void Player::SetShootType()
 		break;
 	case FireModes::SWORD:
 		fireMode = FireModes::PISTOL;
-		//isSemiFiring = true;
 		break;
 	default:
 		break;
@@ -262,7 +238,7 @@ void Player::OnPickupItem(Pickup* item)
 
 void Player::OnHitZombie(Zombie* zombie)
 {
-	zombie->SetActive(false);
+	//zombie->SetActive(false);
 }
 
 VertexArrayObj* Player::GetPlayerBackground()
@@ -285,7 +261,7 @@ Vector2f Player::GetLook()
 	return look;
 }
 
-Player::FireModes Player::GetFireMode()
+FireModes Player::GetFireMode()
 {
 	return fireMode;
 }

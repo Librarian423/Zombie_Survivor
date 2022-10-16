@@ -14,16 +14,13 @@
 #include "../GameObject/ItemGenerator.h"
 #include "../GameObject/Pistol.h"
 #include "../GameObject/SM.h"
+#include "../GameObject/Sword.h"
 #include "../UI/UIDev1Mgr.h"
 
 void OnCreateBullet(Bullet* bullet)
 {
 	SceneDev1* scene = (SceneDev1*)SCENE_MGR->GetScene(Scenes::Dev1);
-	/*Vector2u pos = RESOURCE_MGR->GetTexture("graphics/fire.png")->getSize();
-	IntRect rectSourceSprite(0, 0, pos.x / 9, pos.y);
-	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/fire.png"));*/
 	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/bullet.png"));
-	//bullet->SetTextureRect(rectSourceSprite);
 	bullet->SetZombieList(scene->GetZombieList());
 	bullet->Init();
 }
@@ -75,6 +72,9 @@ void SceneDev1::Init()
 	sm = new SM();
 	sm->Init(player);
 
+	sword = new Sword();
+	sword->Init(player);
+
 	//objList.push_back(uiMgr);
 	for ( auto obj : objList )
 	{
@@ -99,6 +99,7 @@ void SceneDev1::Release()
 	player = nullptr;
 	pistol = nullptr;
 	sm = nullptr;
+	sword = nullptr;
 }
 
 void SceneDev1::Enter()
@@ -137,7 +138,7 @@ void SceneDev1::Exit()
 
 	player->Reset();
 	bullets.Reset();
-
+	//bullet->Reset();
 	FindGameObj("ItemGenerator")->Reset();
 	 
 	uiMgr->Reset();
@@ -156,15 +157,17 @@ void SceneDev1::Update(float dt)
 		return;
 	}
 	bullets.Update(dt);
+	//bullet->Update(dt);
 	switch ( player->GetFireMode() )
 	{
-	case Player::FireModes::PISTOL:
+	case FireModes::PISTOL:
 		pistol->Update(dt);
 		break;
-	case Player::FireModes::SUBMACHINE:
+	case FireModes::SUBMACHINE:
 		sm->Update(dt);
 		break;
-	case Player::FireModes::SWORD:
+	case FireModes::SWORD:
+		sword->Update(dt);
 		break;
 	default:
 		break;

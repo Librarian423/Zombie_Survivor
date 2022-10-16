@@ -11,13 +11,16 @@ class SpriteObj;
 class Pickup;
 class Pistol;
 class SM;
+class Sword;
 
 class SceneDev1 : public Scene
 {
 protected:
 	Player* player;
+	//Bullet* bullet;
 	Pistol* pistol;
 	SM* sm;
+	Sword* sword;
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
 	//SpriteObj* cursor;

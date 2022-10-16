@@ -55,11 +55,6 @@ void ObjectPool<T>::Init(int cacheSize)
 			OnCreate(ptr);
 		}
 	}
-	/*for ( auto ptr : unuse )
-	{
-		ptr->Init();
-		ptr->SetActive(false);
-	}*/
 }
 
 template <typename T>

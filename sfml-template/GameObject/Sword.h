@@ -7,23 +7,23 @@ class VertexArrayObj;
 class Scene;
 class Player;
 
-class SM : public SpriteObj
+class Sword : public SpriteObj
 {
 protected:
 	Player* player;
 	Scene* scene;
-
-	ObjectPool<Bullet>* bulletPool;
+	//Bullet* bullet;
+	//ObjectPool<Bullet>* bulletPool;
 	VertexArrayObj* background;
 
 	Vector2f look;
 
 	float fireTimer;
-	float intervalSM;
-	
+	float intervalSword;
+
 public:
-	SM();
-	virtual ~SM();
+	Sword();
+	virtual ~Sword();
 
 	void Init(Player* player);
 	virtual void Reset() override;
@@ -32,4 +32,3 @@ public:
 
 	void Fire();
 };
-

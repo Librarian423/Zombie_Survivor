@@ -4,6 +4,7 @@
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
+#include "Player.h"
 
 SM::SM()
 	:fireTimer(1.0f), intervalSM(0.1f)
@@ -39,6 +40,7 @@ void SM::Update(float dt)
 	}
 	
 	fireTimer += dt;
+
 	if ( fireTimer > intervalSM && InputMgr::GetMouse(Mouse::Button::Left) )
 	{
 		Fire();

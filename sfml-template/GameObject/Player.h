@@ -11,57 +11,36 @@ class UIMgr;
 class Pistol;
 
 
-//enum class FireModes
-//{
-//	Manual,
-//	Auto,
-//	Semi,
-//};
+enum class FireModes
+{
+	PISTOL,
+	SUBMACHINE,
+	SWORD,
+};
 
 class Player : public SpriteObj
 {
-public:
-	enum class FireModes
-	{
-		PISTOL,
-		SUBMACHINE,
-		SWORD,
-	};
+//public:
+//	enum class FireModes
+//	{
+//		PISTOL,
+//		SUBMACHINE,
+//		SWORD,
+//	};
 protected:
 	Vector2f look;
 	Vector2f direction; //이동방향 , 단위 벡터
 	float speed;
 	float accelation;
 	float deaccelation;
-
 	Vector2f velocity;
 
-	Pistol* weapon;
-
 	VertexArrayObj* background;
-
 	ObjectPool<Bullet>* bulletPool;
+	//Bullet* bullet;
 
 	Scene* scene;
 	UIMgr* uiMgr;
-
-	//int magazineSize;
-	//int ammo;
-	//int currentAmmo;
-
-	//bool isReloading;
-	//float reloadTIme;
-	//float reloadTimer;
-	float fireTimer;
-
-	float intervalManual;
-	float intervalSemiauto;
-	float intervalAuto;
-
-	bool isFire;
-	int semiTotal;
-	int semiCount;
-	bool isSemiFiring;
 
 	FireModes fireMode;
 
@@ -78,12 +57,8 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
-	
-	void Fire();
-	//void Reload();
 
 	void ResetVelocity();
-	//void ResetAmo();
 	void SetShootType();
 	
 	void OnPickupItem(Pickup* item);

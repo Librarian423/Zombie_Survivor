@@ -4,10 +4,11 @@
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
-#include <iostream>
+#include "Player.h"
+
 
 Pistol::Pistol()
-	:fireTimer(1.0f), intervalPistol(0.1f), intervalSM(0.1f), intervalSword(0.3f), type(WeaponTypes::PISTOL)
+	:fireTimer(1.0f), intervalPistol(0.1f)
 {
 }
 
@@ -38,19 +39,9 @@ void Pistol::Update(float dt)
 	{
 		return;
 	}
-	/*if ( InputMgr::GetKeyDown(Keyboard::Key::Num1) )
-	{
-		SetWeaponType(WeaponTypes::PISTOL);
-	}
-	if ( InputMgr::GetKeyDown(Keyboard::Key::Num2) )
-	{
-		SetWeaponType(WeaponTypes::SM);
-	}
-	if ( InputMgr::GetKeyDown(Keyboard::Key::Num3) )
-	{
-		SetWeaponType(WeaponTypes::SWORD);
-	}*/
+
 	fireTimer += dt;
+
 	if ( fireTimer > intervalPistol && InputMgr::GetMouseDown(Mouse::Button::Left) )
 	{
 		Fire();
@@ -69,9 +60,4 @@ void Pistol::Fire()
 	bullet->Fire(startPos, look, 1000, 1000);
 	bullet->SetBackground(background);
 	fireTimer = 0.f;
-}
-
-void Pistol::SetWeaponType(WeaponTypes type)
-{
-	this->type = type;
 }
