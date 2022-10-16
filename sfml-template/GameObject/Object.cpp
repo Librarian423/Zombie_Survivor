@@ -50,7 +50,8 @@ void Object::Reset()
 void Object::SetPos(const Vector2f& pos)
 {
 	position = pos;
-	hitbox.setPosition(pos);
+	Vector2f hitboxPos = { hitBoxRect.left, hitBoxRect.top };
+	hitbox.setPosition(hitboxPos + pos);
 }
 
 const Vector2f& Object::GetPos() const
@@ -77,6 +78,7 @@ void Object::Draw(RenderWindow& window)
 
 void Object::SetHitbox(const FloatRect rect)
 {
+	hitBoxRect = rect;
 	hitbox.setSize({ rect.width, rect.height });
 	Utils::SetOrigin(hitbox, Origins::MC);
 }

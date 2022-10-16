@@ -46,7 +46,7 @@ void SceneDev1::Init()
 	player = new Player();
 	player->SetName("Player");
 	player->SetTexture(*RESOURCE_MGR->GetTexture("graphics/player.png"));
-	player->SetHitbox({ -25, -25, 25, 25 });
+	player->SetHitbox(FloatRect(0.f, 0.f, 25.f, 25.f));
 	player->SetBulletPool(&bullets);
 	player->SetBackground(background);
 	objList.push_back(player);

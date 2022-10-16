@@ -83,7 +83,7 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Bloater:
 	{
         SetTexture(*resMgr->GetTexture("graphics/bloater.png"));
-        SetHitbox({ -25.f, -25.f, 25.f, 25.f });
+        SetHitbox(FloatRect(0.f, 0.f, 40.f, 45.f));
         SetName("bloater");
 	    this->speed = 40 ;
         maxHp = 100.f;
@@ -92,7 +92,7 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Chaser:
 	{
         SetTexture(*resMgr->GetTexture("graphics/chaser.png"));
-        SetHitbox({ -18.f, -18.f, 18.f, 18.f });
+        SetHitbox(FloatRect(0.f, 0.f, 20.f, 30.f));
         SetName("chaser");
 	    this->speed = 70 ;
         maxHp = 75.f;
@@ -101,7 +101,8 @@ void Zombie::SetType(Types t)
 	case Zombie::Types::Crawler:
 	{ 
         SetTexture(*resMgr->GetTexture("graphics/crawler.png"));
-        SetHitbox({ -15.f, -15.f, 15.f, 15.f });
+        SetHitbox({ -30.f, -122.f, 30.f, 18.f });
+        SetHitbox(FloatRect(0.f, -3.f, 30.f, 22.f));
         SetName("crawler");
 	    this->speed = 20 ;
         maxHp = 50.f;

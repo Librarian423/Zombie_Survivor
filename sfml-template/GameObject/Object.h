@@ -19,6 +19,7 @@ protected:
 	static int objCount;
 	
 	RectangleShape hitbox;
+	FloatRect hitBoxRect;
 
 	bool isDevMod;
 
