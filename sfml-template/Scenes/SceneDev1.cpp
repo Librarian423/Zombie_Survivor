@@ -110,6 +110,7 @@ void SceneDev1::Release()
 
 void SceneDev1::Enter()
 {
+	SOUND_MGR->Play("sound/battle.wav", true);
 	ITEM_GEN->Release();
 
 	//마우스 커서
@@ -157,10 +158,12 @@ void SceneDev1::Exit()
 	slashes.Reset();
 
 	uiMgr->Reset();
+	SOUND_MGR->StopAll();
 }
 
 void SceneDev1::Update(float dt)
 {
+	
 	Scene::Update(dt);
 
 	// 비활성화된 좀비 제거
@@ -189,7 +192,7 @@ void SceneDev1::Update(float dt)
 		CreateZombies(++stage);
 
 	worldView.setCenter(player->GetPos());
-
+	
 	// 개발용 start
 	if ( InputMgr::GetKeyDown(Keyboard::Space) )
 	{
@@ -225,9 +228,11 @@ void SceneDev1::Update(float dt)
 
 void SceneDev1::Draw(RenderWindow& window)
 {
+	
 	Scene::Draw(window);
-
+	
 	window.setView(worldView);
+
 	const auto& bulletsList = bullets.GetUseList();
 	for ( auto bullet : bulletsList )
 	{
@@ -238,8 +243,9 @@ void SceneDev1::Draw(RenderWindow& window)
 	{
 		slash->Draw(window);
 	}
-	ITEM_GEN->Draw(window);
+	//ITEM_GEN->Draw(window);
 	uiMgr->Draw(window);
+	
 }
 
 void SceneDev1::CreateBackground(int width, int height, float quadWidth, float quadHeight)
