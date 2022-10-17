@@ -110,6 +110,7 @@ void SceneDev1::Release()
 
 void SceneDev1::Enter()
 {
+	SOUND_MGR->Play("sound/battle.wav", true);
 	ITEM_GEN->Release();
 
 	//마우스 커서
@@ -156,6 +157,7 @@ void SceneDev1::Exit()
 	slashes.Reset();
 
 	uiMgr->Reset();
+	SOUND_MGR->StopAll();
 }
 
 void SceneDev1::Update(float dt)
