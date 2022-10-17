@@ -82,11 +82,11 @@ void Bullet::Update(float dt)
 		{
 			if ( zombie->GetActive() )
 			{
-				if ( GetGlobalBounds().intersects(zombie->GetHitbox().getGlobalBounds()) )
+				if (Utils::OBB(hitbox, zombie->GetHitbox()))
 				{
 					zombie->OnHitBullet(this);
 					SetActive(false);
-					break;
+					//break;
 				}
 			}
 		}

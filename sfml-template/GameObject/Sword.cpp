@@ -61,7 +61,7 @@ void Sword::Fire()
 {
 	Vector2f startPos = player->GetPosition() + look * 25.f;
 	Bullet* bullet = bulletPool->Get();
-	bullet->Fire(startPos, look, 500, 50);
+	bullet->Fire(startPos, look, 300, 75);
 	bullet->SetBackground(background);
 	fireTimer = 0.f;
 }

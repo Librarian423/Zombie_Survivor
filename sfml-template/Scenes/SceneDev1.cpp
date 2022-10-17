@@ -19,6 +19,8 @@ void OnCreateBullet(Bullet* bullet)
 	SceneDev1* scene = (SceneDev1*)SCENE_MGR->GetScene(Scenes::Dev1);
 	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/bullet.png"));
 	bullet->SetZombieList(scene->GetZombieList());
+	bullet->SetHitbox(FloatRect(0.f, 0.f, 10.f, 10.f));
+	bullet->SetDevMode(true);
 	bullet->Init();
 }
 
@@ -27,6 +29,8 @@ void OnCreateSlash(Bullet* bullet)
 	SceneDev1* scene = (SceneDev1*)SCENE_MGR->GetScene(Scenes::Dev1);
 	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/sword-slash.png"));
 	bullet->SetZombieList(scene->GetZombieList());
+	bullet->SetHitbox(FloatRect(0.f, 0.f, 70.f, 70.f));
+	bullet->SetDevMode(true);
 	bullet->Init();
 }
 
@@ -47,7 +51,7 @@ void SceneDev1::Init()
 	uiMgr = new UIDev1Mgr(this);
 	uiMgr->Init();
 
-	CreateBackground(15, 26, 50.f, 50.f);
+	CreateBackground(30, 50, 50.f, 50.f);
 
 	Vector2i centerPos = FRAMEWORK->GetWindowSize() / 2;
 	background->SetPos({ 0,0 });

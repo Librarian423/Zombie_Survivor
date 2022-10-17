@@ -70,7 +70,7 @@ void Object::Update(float dt)
 
 void Object::Draw(RenderWindow& window)
 {
-	if ( !isDevMod )
+	if ( isDevMod )
 	{
 		window.draw(hitbox);
 	}
