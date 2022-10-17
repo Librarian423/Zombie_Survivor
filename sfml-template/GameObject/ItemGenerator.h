@@ -20,6 +20,6 @@ public:
 	void Erase(int num);
 	void Update(float dt);
 	void Draw(RenderWindow& window);
-	void Generate(Vector2f pos);
+	void Generate(Vector2f pos, int value);
 };
 #define ITEM_GEN (ItemGenerator::GetInstance())

@@ -170,6 +170,7 @@ void Player::Update(float dt)
 		exp -= requireExp;
 		level++;
 		SetStatData(level);
+		//health = maxHealth;
 		cout << "level up!! " << level << endl;
 	}
 }
@@ -201,6 +202,16 @@ void Player::OnPickupItem(Pickup* item)
 	case Pickup::Types::Health:
 		//hp increase
 		health += item->GetValue();
+		if ( health >= maxHealth )
+		{
+			health = maxHealth;
+		}
+		cout << "health " << item->GetValue() << " " << health << endl;
+		break;
+	case Pickup::Types::Exp:
+		//hp increase
+		exp += item->GetValue();
+		cout << "exp " << item->GetValue() << " " << exp << endl;
 		break;
 	}
 }

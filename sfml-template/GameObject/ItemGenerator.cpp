@@ -69,7 +69,7 @@ void ItemGenerator::Draw(RenderWindow& window)
 	}
 }
 
-void ItemGenerator::Generate(Vector2f pos)
+void ItemGenerator::Generate(Vector2f pos, int value)
 {
 	Scene* scene = SCENE_MGR->GetCurScene();
 
@@ -77,7 +77,14 @@ void ItemGenerator::Generate(Vector2f pos)
 
 	Pickup* item = new Pickup();
 	item->SetType(itemType);
-	item->SetValue(10);
+	if ( item->GetType() == Pickup::Types::Exp )
+	{
+		item->SetValue(value);
+	}
+	else
+	{
+		item->SetValue(10);
+	}
 	item->SetPlayer((Player*)scene->FindGameObj("Player"));
 	item->Init();
 

@@ -43,6 +43,7 @@ protected:
 	PlayerStatTable pst;
 	int level;
 	float requireExp;
+	float maxHealth;
 	float health;
 	float damage;
 	float exp;
@@ -81,6 +82,7 @@ public:
 	void SetStatData(int idx)
 	{
 		requireExp = pst.LoadReqExp(idx);
+		maxHealth = pst.LoadHealth(idx);
 		health = pst.LoadHealth(idx);
 		damage = pst.LoadDamage(idx);
 	}
