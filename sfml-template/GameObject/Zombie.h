@@ -46,12 +46,11 @@ public:
 
 	virtual void Reset() override;
 
-	void SetType(Types t);
-	Types GetType()const;
+	void SetZombieType(Types t);
+	Types GetZombieType() const;
 
 	Vector2f GetDir();
 	void OnHitBullet(Bullet* bullet);
-	void OnHitSlash(Slash* slash);
 
 	void SetHealth(float delta) { health = health + delta; }
 	float GetDamage() const { return damage; }

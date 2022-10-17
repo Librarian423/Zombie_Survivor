@@ -126,7 +126,7 @@ void SceneDev1::Enter()
 	player->SetPos({ 0, 0 });
 
 	//zombie
-	CreateZombies(25);
+	CreateZombies(5);
 
 	player->Reset();
 	bullets.Reset();
@@ -161,6 +161,31 @@ void SceneDev1::Exit()
 void SceneDev1::Update(float dt)
 {
 	Scene::Update(dt);
+
+	// 비활성화된 좀비 제거
+	for (auto it = zombies.begin(); it != zombies.end(); )
+	{
+		if (!(*it)->GetActive())
+		{
+			it = zombies.erase(it);
+		}
+		else
+			it++;
+	}
+
+	for (auto it = objList.begin(); it != objList.end(); )
+	{
+		if (!(*it)->GetActive() && !(*it)->GetType().compare("Zombie"))
+		{
+			delete (*it);
+			it = objList.erase(it);
+		}
+		else
+			it++;
+	}
+
+	if (zombies.empty())
+		CreateZombies(5);
 
 	worldView.setCenter(player->GetPos());
 
@@ -274,7 +299,8 @@ void SceneDev1::CreateZombies(int count)
 		Zombie* zombie = new Zombie();
 		Vector2f genPos = Utils::RandomOutCirclePoint() * Utils::RandomRange(300.f, 500.f);
 		zombie->SetPos(genPos);
-		zombie->SetType((Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes));
+		zombie->SetType("Zombie");
+		zombie->SetZombieType((Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes));
 		zombie->Init(player);
 		zombie->SetBackground(background);
 		objList.push_back(zombie);

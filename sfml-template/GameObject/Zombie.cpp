@@ -76,7 +76,7 @@ void Zombie::Init(Player* player)
     SpriteObj::Init();
 }
 
-void Zombie::SetType(Types t)
+void Zombie::SetZombieType(Types t)
 {
     type = t;
 
@@ -119,7 +119,7 @@ void Zombie::SetType(Types t)
     health = maxHp;
 }
 
-Zombie::Types Zombie::GetType() const
+Zombie::Types Zombie::GetZombieType() const
 {
     return type;
 }
@@ -150,9 +150,4 @@ void Zombie::OnHitBullet(Bullet* bullet)
         player->SetExp(maxHp);
         SetActive(false);
     }
-}
-
-void Zombie::OnHitSlash(Slash* slash)
-{
-    SetActive(false);
 }
