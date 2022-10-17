@@ -29,6 +29,11 @@ void Player::SetBulletPool(ObjectPool<Bullet>* ptr)
 	bulletPool = ptr;
 }
 
+void Player::SetSlashPool(ObjectPool<Bullet>* ptr)
+{
+	SlashPool = ptr;
+}
+
 void Player::SetBackground(VertexArrayObj* bk)
 {
 	background = bk;
@@ -128,8 +133,6 @@ void Player::Update(float dt)
 		SetPos(pos);
 		ResetVelocity();
 	}
-
-	//bullet->Update(dt);
 
 	if ( bulletPool == nullptr ) 
 	{
@@ -249,6 +252,11 @@ VertexArrayObj* Player::GetPlayerBackground()
 ObjectPool<Bullet>* Player::GetBulletPool()
 {
 	return bulletPool;
+}
+
+ObjectPool<Bullet>* Player::GetSlashPool()
+{
+	return SlashPool;
 }
 
 Vector2f Player::GetPosition()

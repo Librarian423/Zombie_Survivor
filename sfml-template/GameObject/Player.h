@@ -37,6 +37,7 @@ protected:
 
 	VertexArrayObj* background;
 	ObjectPool<Bullet>* bulletPool;
+	ObjectPool<Bullet>* SlashPool;
 	//Bullet* bullet;
 
 	Scene* scene;
@@ -49,6 +50,7 @@ public:
 	virtual ~Player();
 
 	void SetBulletPool(ObjectPool<Bullet>* ptr);
+	void SetSlashPool(ObjectPool<Bullet>* ptr);
 	void SetBackground(VertexArrayObj* bk);
 	
 	virtual void Init() override;
@@ -66,6 +68,7 @@ public:
 
 	VertexArrayObj* GetPlayerBackground();
 	ObjectPool<Bullet>* GetBulletPool();
+	ObjectPool<Bullet>* GetSlashPool();
 	Vector2f GetPosition();
 	Vector2f GetLook();
 	FireModes GetFireMode();

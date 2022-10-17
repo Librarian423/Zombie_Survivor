@@ -14,6 +14,7 @@ protected:
 	Player* player;
 	Scene* scene;
 	
+	ObjectPool<Bullet>* bulletPool;
 	VertexArrayObj* background;
 	//list<Zombie*> zombies;
 
@@ -31,5 +32,5 @@ public:
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	void Fire(Slash* slash);
+	void Fire();//Slash* slash);
 };

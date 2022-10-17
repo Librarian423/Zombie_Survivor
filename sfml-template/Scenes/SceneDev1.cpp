@@ -25,6 +25,14 @@ void OnCreateBullet(Bullet* bullet)
 	bullet->Init();
 }
 
+void OnCreateSlash(Bullet* bullet)
+{
+	SceneDev1* scene = (SceneDev1*)SCENE_MGR->GetScene(Scenes::Dev1);
+	bullet->SetTexture(*RESOURCE_MGR->GetTexture("graphics/sword-slash.png"));
+	bullet->SetZombieList(scene->GetZombieList());
+	bullet->Init();
+}
+
 SceneDev1::SceneDev1() : Scene(Scenes::Dev1)
 {
 
@@ -53,11 +61,15 @@ void SceneDev1::Init()
 	player->SetName("Player");
 	player->SetTexture(*RESOURCE_MGR->GetTexture("graphics/player.png"));
 	player->SetBulletPool(&bullets);
+	player->SetSlashPool(&slashes);
 	player->SetBackground(background);
 	objList.push_back(player);
 
 	bullets.OnCreate = OnCreateBullet;
 	bullets.Init();
+
+	slashes.OnCreate = OnCreateSlash;
+	slashes.Init();
 
 	//item
 	ItemGenerator* itemGen = new ItemGenerator();
@@ -90,7 +102,7 @@ void SceneDev1::Release()
 		uiMgr = nullptr;
 	}
 	bullets.Release();
-
+	slashes.Release();
 	Scene::Release();
 	player = nullptr;
 	pistol = nullptr;
@@ -133,6 +145,8 @@ void SceneDev1::Exit()
 
 	player->Reset();
 	bullets.Reset();
+	slashes.Reset();
+
 	FindGameObj("ItemGenerator")->Reset();
 	 
 	uiMgr->Reset();
@@ -150,8 +164,10 @@ void SceneDev1::Update(float dt)
 		SCENE_MGR->ChangeScene(Scenes::Dev2);
 		return;
 	}
+
 	bullets.Update(dt);
-	
+	slashes.Update(dt);
+
 	switch ( player->GetFireMode() )
 	{
 	case FireModes::PISTOL:
@@ -180,6 +196,11 @@ void SceneDev1::Draw(RenderWindow& window)
 	for ( auto bullet : bulletsList )
 	{
 		bullet->Draw(window);
+	}
+	const auto& slashesList = slashes.GetUseList();
+	for ( auto slash : slashesList )
+	{
+		slash->Draw(window);
 	}
 	uiMgr->Draw(window);
 }

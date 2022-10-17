@@ -26,6 +26,7 @@ protected:
 	list<Zombie*> zombies;
 
 	ObjectPool<Bullet> bullets;
+	ObjectPool<Bullet> slashes;
 
 public:
 	SceneDev1();
