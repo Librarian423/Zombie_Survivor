@@ -146,8 +146,8 @@ void Zombie::OnHitBullet(Bullet* bullet)
     if (health <= 0.001f)
     {
         // 경험치 아이템을 드랍하게 하고, 드랍한 아이템을 획득하면 경험치를 획득하게 함
-        ITEM_GEN->Generate(GetPos());
-        player->SetExp(maxHp);
+        ITEM_GEN->Generate(GetPos(), maxHp);
+        //player->SetExp(maxHp);
         SetActive(false);
     }
 }
