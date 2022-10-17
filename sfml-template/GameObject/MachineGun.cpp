@@ -3,6 +3,7 @@
 #include "VertexArrayObj.h"
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
+#include "../Framework/SoundMgr.h"
 #include "Player.h"
 
 MachineGun::MachineGun(Player* player)
@@ -56,6 +57,7 @@ void MachineGun::Draw(RenderWindow& window)
 
 void MachineGun::Fire()
 {
+	SOUND_MGR->Play("sound/pistol.wav", false);
 	Vector2f startPos = player->GetPosition() + look * 25.f;
 	Bullet* bullet = bulletPool->Get();
 	bullet->Fire(startPos, look, 1000, 1000);

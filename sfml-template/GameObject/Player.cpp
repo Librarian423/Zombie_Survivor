@@ -6,6 +6,7 @@
 #include "../GameObject/Zombie.h"
 #include "../GameObject/VertexArrayObj.h"
 #include "../Framework/Framework.h"
+#include "../Framework/SoundMgr.h"
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
 #include "Pistol.h"
@@ -167,6 +168,7 @@ void Player::Update(float dt)
 	// level up
 	if (exp >= requireExp)
 	{
+		SOUND_MGR->Play("sound/levelup.wav", false);
 		exp -= requireExp;
 		level++;
 		SetStatData(level);

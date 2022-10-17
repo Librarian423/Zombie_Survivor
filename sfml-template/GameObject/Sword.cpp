@@ -3,6 +3,7 @@
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
 #include "../Framework/ResourceMgr.h"
+#include "../Framework/SoundMgr.h"
 #include "Player.h"
 #include "Bullet.h"
 
@@ -59,6 +60,7 @@ void Sword::Draw(RenderWindow& window)
 
 void Sword::Fire()
 {
+	SOUND_MGR->Play("sound/sword.wav", false);
 	Vector2f startPos = player->GetPosition() + look * 25.f;
 	Bullet* bullet = bulletPool->Get();
 	bullet->Fire(startPos, look, 300, 75);
