@@ -26,7 +26,6 @@ protected:
 	list<Zombie*> zombies;
 	ObjectPool<Bullet> bullets;
 	ObjectPool<Bullet> slashes;
-
 public:
 	SceneDev1();
 	virtual ~SceneDev1();
@@ -43,6 +42,6 @@ public:
 
 	void CreateBackground(int width, int height, float quadWidth, float quadHeight);
 	void CreateZombies(int count);
-	
+		
 	list<Zombie*>* GetZombieList() { return &zombies; }
 };

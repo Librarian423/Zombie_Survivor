@@ -19,8 +19,6 @@ protected:
 	bool isGameStart = false;
 	bool isLanguage = false;
 
-	Languages languagesMode;
-
 public:
 	UiMenuMgr(Scene* scene);
 	virtual ~UiMenuMgr();
@@ -31,5 +29,7 @@ public:
 
 	virtual void Update(float dt);
 	virtual void Draw(RenderWindow& window);
+
+	bool getIsGameStart();
 };
 

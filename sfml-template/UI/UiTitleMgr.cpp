@@ -21,8 +21,7 @@ UiTitleMgr::~UiTitleMgr()
 
 void UiTitleMgr::Init()
 {
-	//문제점 화면 출력 크기 이상함
-	//문제점 한글 파일 출력 시 깨짐 현상
+	UIMgr::Init();
 	Vector2i WindowSize = FRAMEWORK->GetWindowSize();
 	//background
 	background = new SpriteObj();
@@ -31,7 +30,7 @@ void UiTitleMgr::Init()
 	uiObjList.push_back(background);
 	
 	auto stringTable = DATATABLE_MGR->Get<StringTable>(DataTable::Types::String);
-	stringTable->SetLanguage(Languages::ENG);
+	stringTable->SetLanguage(StringTable::getCurrentLang());
 
 	//title
 	title = new TextObj();
@@ -49,7 +48,6 @@ void UiTitleMgr::Init()
 	guide->SetPos({ WindowSize.x * 0.5f,WindowSize.y * 0.8f });
 	uiObjList.push_back(guide);
 	
-	UIMgr::Init();
 }
 
 void UiTitleMgr::Release()

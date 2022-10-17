@@ -44,6 +44,8 @@ void SceneTitle::Enter()
 
 	uiView.setSize(size.x, size.y);
 	uiView.setCenter(size.x * 0.5f, size.y * 0.5f);
+
+	Init();//왜 기본생성자가 영어인데 한글로 출력되냐 ㅅㅂ
 }
 
 void SceneTitle::Exit()

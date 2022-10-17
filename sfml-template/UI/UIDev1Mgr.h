@@ -11,28 +11,38 @@ class UIDev1Mgr :public UIMgr
 protected:
 	//exp
 	SpriteObj* expFrame;
-	RectangleShape expBar;
+	RectangleShape* expBar;
 	//player hp
-	RectangleShape playerHpBar;
+	RectangleShape* playerHpBar;
 	//zombie hp
-	RectangleShape zombieHpBar;
+	RectangleShape* zombieHpBar;
 	//Timer
 	TextObj* timer;
 	//setting
 	SpriteObj* settingBackground;
 	TextObj* setting;
-	TextObj* home;
+	TextObj* Menu;
 	TextObj* restart;
 	TextObj* volume;
 	TextObj* volumePlus;
 	TextObj* volumeMinus;
-	TextObj* speed;
-	TextObj* speedPlus;
-	TextObj* speedMinus;
+	//TextObj* speed;
+	//TextObj* speedPlus;
+	//TextObj* speedMinus;
+	//win
+	SpriteObj* win;
+	//Lose
+	SpriteObj* Lose;
 
 	SpriteObj* cursor;
+	
+	bool isPause = false;
+	bool isMenu = false;
+	bool isRestart = false;
+	bool isVolume = false;
+	bool isVolumePlus = false;
+	bool isVolumeMinus = false;
 
-	Languages languagesMode;
 public:
 	UIDev1Mgr(Scene* scene);
 	virtual ~UIDev1Mgr();
@@ -44,4 +54,11 @@ public:
 	virtual void Update(float dt);
 	virtual void Draw(RenderWindow& window);
 
+	bool GetIsPause();
+	bool GetIsMenu();
+	bool GetIsRestart();
+	bool GetIsVolumePlus();
+	bool GetIsVolumeMinus();
+
+	void SetsettingBackground(bool is) { settingBackground->SetActive(is); };
 };

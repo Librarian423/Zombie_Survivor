@@ -3,6 +3,8 @@
 #include <list>
 #include "../GameObject/Object.h"
 
+class Player;
+
 using namespace std;
 using namespace sf;
 
@@ -12,7 +14,6 @@ enum class Scenes
 {
 	Title,
 	Menu,
-	Game,
 	Dev1,
 	Dev2,
 };

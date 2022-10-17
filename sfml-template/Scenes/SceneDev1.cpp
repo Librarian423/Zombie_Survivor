@@ -30,7 +30,8 @@ void OnCreateSlash(Bullet* bullet)
 	bullet->Init();
 }
 
-SceneDev1::SceneDev1() : Scene(Scenes::Dev1)
+SceneDev1::SceneDev1()
+	: Scene(Scenes::Dev1)
 {
 
 }
@@ -44,8 +45,6 @@ void SceneDev1::Init()
 {
 	Release();
 	
-	uiMgr = new UIDev1Mgr(this);
-	uiMgr->Init();
 
 	CreateBackground(15, 26, 50.f, 50.f);
 
@@ -63,6 +62,8 @@ void SceneDev1::Init()
 	player->SetBackground(background);
 	objList.push_back(player);
 
+	uiMgr = new UIDev1Mgr(this);
+	uiMgr->Init();
 	bullets.OnCreate = OnCreateBullet;
 	bullets.Init();
 
@@ -151,10 +152,33 @@ void SceneDev1::Exit()
 
 void SceneDev1::Update(float dt)
 {
-	Scene::Update(dt);
 
+	uiMgr->Update(dt);
 	worldView.setCenter(player->GetPos());
+	if (((UIDev1Mgr*)uiMgr)->GetIsMenu() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		SCENE_MGR->ChangeScene(Scenes::Menu);
+		return;
+	}
+	if (((UIDev1Mgr*)uiMgr)->GetIsRestart() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		//SCENE_MGR->ChangeScene(Scenes::Dev1);
+		Exit();
+		Enter();
+		return;
+	}
+	if (((UIDev1Mgr*)uiMgr)->GetIsVolumePlus() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		SOUND_MGR->SetVolume(10.f);
+	}
+	if (((UIDev1Mgr*)uiMgr)->GetIsVolumeMinus() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		SOUND_MGR->SetVolume(-10.f);
+	}
 
+	if (((UIDev1Mgr*)uiMgr)->GetIsPause())
+		return;
+	Scene::Update(dt);
 	if ( InputMgr::GetKeyDown(Keyboard::Space) )
 	{
 		SCENE_MGR->ChangeScene(Scenes::Dev2);
@@ -193,7 +217,6 @@ void SceneDev1::Update(float dt)
 		break;
 	}
 	
-	uiMgr->Update(dt);
 }
 
 void SceneDev1::Draw(RenderWindow& window)
@@ -280,3 +303,4 @@ void SceneDev1::CreateZombies(int count)
 		zombies.push_back(zombie);
 	}
 }
+

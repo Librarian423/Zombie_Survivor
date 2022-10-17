@@ -5,8 +5,9 @@ Menu_Game,Game Start
 Menu_Language,Language
 Menu_Korean,Korean
 Menu_English,English
-GAME_Menu,
-GAME_Restart,
-GAME_VolumeUp,
-GAME_VolumeDown,
-Game_,
+Game_Setting,Setting
+Game_Menu,Menu
+Game_Restart,Restart
+Game_Volume,Volume
+Game_VolumeUp,Volume Up
+Game_VolumeDown,Volume Down

@@ -1,6 +1,7 @@
 #include "TextObj.h"
 #include "../Framework/ResourceMgr.h"
 
+
 TextObj::TextObj()
 {
 	text.setFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
@@ -20,8 +21,9 @@ void TextObj::SetFont(Font& font)
 	text.setFont(font);
 }
 
-void TextObj::SetText(string str)
+void TextObj::SetText(wstring str)
 {
+
 	text.setString(str);
 }
 
@@ -49,3 +51,4 @@ const string& TextObj::GetText() const
 {
 	return text.getString();
 }
+

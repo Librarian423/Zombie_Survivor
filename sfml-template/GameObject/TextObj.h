@@ -18,7 +18,7 @@ public:
 
 
 	void SetFont(Font& font);
-	void SetText(string text);
+	void SetText(wstring text);
 	void SetPos(const Vector2f& pos);
 	void SetColor(Color color);
 	FloatRect GetGlobalBounds();

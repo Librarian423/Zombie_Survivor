@@ -7,11 +7,12 @@
 #include "../DataTable/DataTableMGR.h"
 #include "../DataTable/StringTable.h"
 #include "../SFML-2.5.1/include/SFML/Graphics/Font.hpp"
-
+#include <tchar.h>
 using namespace sf;
+using namespace std::string_literals; // enables s-suffix for std::string literals
 
 UiMenuMgr::UiMenuMgr(Scene* scene)
-	:UIMgr(scene), languagesMode(Languages::ENG)
+	:UIMgr(scene)
 {
 }
 
@@ -22,9 +23,9 @@ UiMenuMgr::~UiMenuMgr()
 void UiMenuMgr::Init()
 {
 	Release();
-	//문제점 화면 출력 크기 이상함
-	//문제점 한글 파일 출력 시 깨짐 현상
+
 	Vector2i WindowSize = FRAMEWORK->GetWindowSize();
+
 	//background
 	background = new SpriteObj();
 	background->SetTexture(*RESOURCE_MGR->GetTexture("graphics/background.png"));
@@ -32,13 +33,12 @@ void UiMenuMgr::Init()
 	uiObjList.push_back(background);
 
 	auto stringTable = DATATABLE_MGR->Get<StringTable>(DataTable::Types::String);
-	stringTable->SetLanguage(languagesMode);
+	stringTable->SetLanguage(StringTable::getCurrentLang());
 	
 
 	//gameStrat
-	gameStart = new TextObj();
+	gameStart = new TextObj();	
 	gameStart->SetText(stringTable->Get("Menu_Game"));
-	gameStart->SetActive(true);
 	gameStart->GetSfmlText().setCharacterSize(40);
 	gameStart->SetOrigin(Origins::MC);
 	gameStart->SetPos({ WindowSize.x * 0.5f,WindowSize.y * 0.7f });
@@ -47,7 +47,6 @@ void UiMenuMgr::Init()
 	//language
 	language = new TextObj();
 	language->SetText(stringTable->Get("Menu_Language"));
-	language->SetActive(true);
 	language->GetSfmlText().setCharacterSize(40);
 	language->SetOrigin(Origins::MC);
 	language->SetPos({ WindowSize.x * 0.5f,WindowSize.y * 0.8f });
@@ -56,7 +55,6 @@ void UiMenuMgr::Init()
 	//language_Korean
 	Korean = new TextObj();
 	Korean->SetText(stringTable->Get("Menu_Korean"));
-	Korean->SetActive(false);
 	Korean->GetSfmlText().setCharacterSize(40);
 	Korean->SetOrigin(Origins::MC);
 	Korean->SetPos({ WindowSize.x * 0.5f,WindowSize.y * 0.42f });
@@ -65,7 +63,6 @@ void UiMenuMgr::Init()
 	//language_English
 	English = new TextObj();
 	English->SetText(stringTable->Get("Menu_English"));
-	English->SetActive(false);
 	English->GetSfmlText().setCharacterSize(40);
 	English->SetOrigin(Origins::MC);
 	English->SetPos({ WindowSize.x * 0.5f,WindowSize.y * 0.58f });
@@ -78,6 +75,10 @@ void UiMenuMgr::Init()
 	uiObjList.push_back(cursor);
 
 	UIMgr::Init();
+	gameStart->SetActive(true);
+	language->SetActive(true);
+	Korean->SetActive(false);
+	English->SetActive(false);
 }
 
 void UiMenuMgr::Release()
@@ -87,6 +88,10 @@ void UiMenuMgr::Release()
 
 void UiMenuMgr::Reset()
 {
+	gameStart->SetActive(true);
+	language->SetActive(true);
+	Korean->SetActive(false);
+	English->SetActive(false);
 	UIMgr::Reset();
 }
 
@@ -133,8 +138,10 @@ void UiMenuMgr::Update(float dt)
 		cout << Korean << endl;
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			languagesMode = Languages::KOR;
+			StringTable::SetCurrentLang(Languages::KOR);
+			Reset();
 			Init();
+			
 		}
 	}
 	else
@@ -147,7 +154,8 @@ void UiMenuMgr::Update(float dt)
 		cout << English << endl;
 		if (Mouse::isButtonPressed(Mouse::Left))
 		{
-			languagesMode = Languages::ENG;
+			StringTable::SetCurrentLang(Languages::ENG);
+			Reset();
 			Init();
 		}
 	}
@@ -161,4 +169,9 @@ void UiMenuMgr::Draw(RenderWindow& window)
 {
 	window.setView(parentScene->GetUiView());
 	UIMgr::Draw(window);
+}
+
+bool UiMenuMgr::getIsGameStart()
+{
+	return isGameStart;
 }

@@ -65,6 +65,11 @@ void SoundMgr::StopAll()
 	}
 }
 
+void SoundMgr::SetVolume(float num)
+{
+	volume += num;
+}
+
 void SoundMgr::Update()
 {
 	auto it = playing.begin();

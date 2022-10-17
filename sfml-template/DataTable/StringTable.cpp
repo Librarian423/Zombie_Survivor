@@ -1,8 +1,10 @@
 #include "StringTable.h"
 #include "../3rd/rapidcsv.h"
+#include <SFML/Graphics.hpp>
 
+Languages StringTable::currentLang(Languages::ENG);
 StringTable::StringTable()
-	: DataTable(Types::String), currentLang(Languages::KOR)
+	: DataTable(Types::String)
 {
 	fileNames.push_back("tables/StringTable_Kor.csv");
 	fileNames.push_back("tables/StringTable_Eng.csv");
@@ -11,6 +13,7 @@ StringTable::StringTable()
 StringTable::~StringTable()
 {
 }
+
 
 void StringTable::SetLanguage(Languages lang)
 {
@@ -28,15 +31,15 @@ void StringTable::SetLanguage(Languages lang)
 			//¿?·ù
 			return;
 		}
-		table.insert({ keys[j], values[j] });
+		table.insert({ keys[j], s2w(values[j]) });
 	}
 }
 
-const string& StringTable::Get(const string& id)
+const wstring& StringTable::Get(const string& id)
 {
 	auto find = table.find(id);
 	if (find == table.end())
-		return "Undefined ID";
+		return L"Undefined ID";
 	return find->second;
 	//return Get(currentLang, id);
 }
@@ -59,4 +62,12 @@ bool StringTable::Load()
 	SetLanguage(currentLang);
 
 	return true;
+}
+
+
+std::wstring StringTable::s2w(const std::string& var)
+{
+	static std::locale loc("");
+	auto& facet = std::use_facet<std::codecvt<wchar_t, char, std::mbstate_t>>(loc);
+	return std::wstring_convert<std::remove_reference<decltype(facet)>::type, wchar_t>(&facet).from_bytes(var);
 }

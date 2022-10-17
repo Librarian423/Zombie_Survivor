@@ -2,6 +2,7 @@
 #include "../Framework/ResourceMgr.h"
 #include "../Framework/Framework.h"
 #include "../UI/UIMgr.h"
+#include "../GameObject/Player.h"
 
 Scene::Scene(Scenes type)
 	:type(type)
