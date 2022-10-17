@@ -200,7 +200,7 @@ void Player::OnPickupItem(Pickup* item)
 		//ammo += item->GetValue();
 		break;
 	case Pickup::Types::Health:
-		//hp increase
+		
 		health += item->GetValue();
 		if ( health >= maxHealth )
 		{
@@ -209,7 +209,7 @@ void Player::OnPickupItem(Pickup* item)
 		cout << "health " << item->GetValue() << " " << health << endl;
 		break;
 	case Pickup::Types::Exp:
-		//hp increase
+		
 		exp += item->GetValue();
 		cout << "exp " << item->GetValue() << " " << exp << endl;
 		break;

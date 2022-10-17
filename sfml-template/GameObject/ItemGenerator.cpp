@@ -72,13 +72,34 @@ void ItemGenerator::Draw(RenderWindow& window)
 void ItemGenerator::Generate(Vector2f pos, int value)
 {
 	Scene* scene = SCENE_MGR->GetCurScene();
-
-	Pickup::Types itemType = (Pickup::Types)Utils::RandomRange(1, (int)Pickup::Types::Count);
+	int healthChance = Utils::RandomRange(0, 100);
+	Pickup::Types itemType;
+	if ( healthChance <= 9 )
+	{
+		itemType = Pickup::Types::Health;
+	}
+	else
+	{
+		itemType = Pickup::Types::Exp;
+	}
 
 	Pickup* item = new Pickup();
 	item->SetType(itemType);
 	if ( item->GetType() == Pickup::Types::Exp )
 	{
+		if ( value <= 10.f )
+		{
+			item->SetScale(0.07f, 0.07f);
+		}
+		else if ( value <= 20.f )
+		{
+			item->SetScale(0.085f, 0.085f);
+		}
+		else
+		{
+			item->SetScale(0.1f, 0.1f);
+		}
+		
 		item->SetValue(value);
 	}
 	else
