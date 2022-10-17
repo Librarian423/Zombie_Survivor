@@ -65,12 +65,13 @@ void Player::Update(float dt)
 	Vector2i mousePos = (Vector2i)InputMgr::GetMousePos();
 	Vector2f mouseWorldPos = scene->ScreenToWorldPos(mousePos);
 
-	look = Utils::Normalize(mouseWorldPos - GetPos());
+	look = Utils::Normalize(mouseWorldPos);
+
 	sprite.setRotation(Utils::Angle(look));
 	hitbox.setRotation(Utils::Angle(look));
 
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
+	direction.x = InputMgr::GetAxisRaw(Axis::Horizontal);
+	direction.y = InputMgr::GetAxisRaw(Axis::Vertical);
 	
 	//가속
 	velocity += direction * accelation * dt;
@@ -203,12 +204,12 @@ void Player::OnHitZombie(Zombie* zombie)
 {
 	if (Utils::OBB(hitbox, zombie->GetHitbox()))
 	{
-		cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
+		//cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
 		SetHealth(-FRAMEWORK->GetRealDT() * 10.f * zombie->GetDamage());
 	}
 	else
 	{
-		cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;
+		//cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;
 	}
 }
 

@@ -111,8 +111,8 @@ void SceneDev1::Release()
 void SceneDev1::Enter()
 {
 	//마우스 커서
-	FRAMEWORK->GetWindow().setMouseCursorVisible(false);
-	FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
+	FRAMEWORK->GetWindow().setMouseCursorVisible(true);
+	FRAMEWORK->GetWindow().setMouseCursorGrabbed(false);
 	Vector2i size = FRAMEWORK->GetWindowSize();
 
 	worldView.setSize(size.x, size.y);
