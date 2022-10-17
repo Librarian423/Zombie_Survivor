@@ -8,9 +8,11 @@
 #include "../Framework/Framework.h"
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
+#include "Pistol.h"
+#include "SM.h"
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), bulletPool(nullptr), currentAmmo(10), magazineSize(10), ammo(100), fireMode(FireModes::Manual), reloadTIme(0.7f), isFire(false), semiTotal(3), reloadTimer(0.f), isReloading(false), intervalManual(0.1f), intervalAuto(0.1f), intervalSemiauto(0.1f), fireTimer(1.0f), isSemiFiring(false), semiCount(0), exp(0.f)
+	:speed(500), accelation(1000), deaccelation(1000), fireMode(FireModes::PISTOL), exp(0.f)
 {
 }
 
@@ -21,6 +23,11 @@ Player::~Player()
 void Player::SetBulletPool(ObjectPool<Bullet>* ptr)
 {
 	bulletPool = ptr;
+}
+
+void Player::SetSlashPool(ObjectPool<Bullet>* ptr)
+{
+	SlashPool = ptr;
 }
 
 void Player::SetBackground(VertexArrayObj* bk)
@@ -48,16 +55,10 @@ void Player::Reset()
 	level = 1;
 	exp = 0.f;
 	SetStatData(level);
-	ResetAmo();
 }
 
 void Player::Update(float dt)
-{	
-	if ( InputMgr::GetKeyDown(Keyboard::Key::B) )
-	{
-	
-	}
-
+{
 	SpriteObj::Update(dt);
 
 	RenderWindow& window = FRAMEWORK->GetWindow();
@@ -68,8 +69,8 @@ void Player::Update(float dt)
 	sprite.setRotation(Utils::Angle(look));
 	hitbox.setRotation(Utils::Angle(look));
 
-	direction.x = InputMgr::GetAxisRaw(Axis::Horizontal);
-	direction.y = InputMgr::GetAxisRaw(Axis::Vertical);
+	direction.x = InputMgr::GetAxis(Axis::Horizontal);
+	direction.y = InputMgr::GetAxis(Axis::Vertical);
 	
 	//°¡¼Ó
 	velocity += direction * accelation * dt;
@@ -135,30 +136,9 @@ void Player::Update(float dt)
 		ResetVelocity();
 	}
 
-	if ( bulletPool == nullptr )
+	if ( bulletPool == nullptr ) 
 	{
 		return;
-	}
-
-	fireTimer += dt;
-
-	if ( isReloading )
-	{
-		reloadTimer += dt;
-		if ( reloadTimer > reloadTIme )
-		{
-			isReloading = false;
-			reloadTimer = 0.f;
-		}
-		else
-		{
-			return;
-		}
-	}
-
-	if ( InputMgr::GetKeyDown(Keyboard::R) )
-	{
-		Reload();
 	}
 
 	// test
@@ -174,65 +154,6 @@ void Player::Update(float dt)
 	if ( InputMgr::GetMouseDown(Mouse::Button::Right) )
 	{
 		SetShootType();
-		fireTimer = numeric_limits<float>::max();
-	}
-
-	switch ( fireMode )
-	{
-	case FireModes::Manual:
-	{
-		if ( fireTimer > intervalManual && InputMgr::GetMouseDown(Mouse::Button::Left) )
-		{
-			Fire();
-		}
-		break;
-	}
-
-	case FireModes::Auto:
-	{
-		if ( fireTimer > intervalAuto && InputMgr::GetMouse(Mouse::Button::Left) )
-		{
-			Fire();	
-		}
-		break;
-	}
-	case FireModes::Semi:
-	{
-		if ( fireTimer > intervalSemiauto && (isSemiFiring || InputMgr::GetMouseDown(Mouse::Button::Left)) )
-		{
-			if ( semiCount == 0 )
-			{
-				isSemiFiring = true;
-			}
-			semiCount++;
-			if ( semiCount <= semiTotal && currentAmmo > 0 )
-			{
-				Fire();
-			}
-			else
-			{
-				isSemiFiring = false;
-				fireTimer = 0.f;
-				semiCount = 0;
-			}
-		}
-		break;
-	}
-	}
-
-	// die
-	if (health <= 0.f)
-	{
-		cout << "die" << endl;
-	}
-
-	// level up
-	if (exp >= requireExp)
-	{
-		level++;
-		SetStatData(level);
-		exp -= requireExp;
-		cout << "level up!! " << level << endl;
 	}
 }
 
@@ -241,46 +162,23 @@ void Player::Draw(RenderWindow& window)
 	SpriteObj::Draw(window);
 }
 
-void Player::Fire()
-{
-	if ( currentAmmo == 0 )
-	{
-		return; 
-	}
-	Vector2f startPos = position + look * 25.f;
-	Bullet* bullet = bulletPool->Get();
-	bullet->Fire(startPos, look, 1000, 1000);
-	bullet->SetBackground(background);
-	currentAmmo--;
-	fireTimer = 0.f;
-}
-
 void Player::ResetVelocity()
 {
 	velocity = Vector2f(0, 0);
 }
 
-void Player::ResetAmo()
-{
-	ammo = 100;
-	currentAmmo = 10;
-	magazineSize = 10;
-}
-
 void Player::SetShootType()
 {
-	isSemiFiring = false;
 	switch ( fireMode )
 	{
-	case FireModes::Manual:
-		fireMode = FireModes::Auto;
+	case FireModes::PISTOL:
+		fireMode = FireModes::SUBMACHINE;
 		break;
-	case FireModes::Auto:
-		fireMode = FireModes::Semi;
+	case FireModes::SUBMACHINE:
+		fireMode = FireModes::SWORD;
 		break;
-	case FireModes::Semi:
-		fireMode = FireModes::Manual;
-		isSemiFiring = true;
+	case FireModes::SWORD:
+		fireMode = FireModes::PISTOL;
 		break;
 	default:
 		break;
@@ -293,7 +191,7 @@ void Player::OnPickupItem(Pickup* item)
 	switch ( item->GetType() )
 	{
 	case Pickup::Types::Ammo:
-		ammo += item->GetValue();
+		//ammo += item->GetValue();
 		break;
 	case Pickup::Types::Health:
 		//hp increase
@@ -314,20 +212,32 @@ void Player::OnHitZombie(Zombie* zombie)
 	}
 }
 
-void Player::Reload()
+VertexArrayObj* Player::GetPlayerBackground()
 {
-	isReloading = true;
-	reloadTimer = 0.f;
+	return background;
+}
 
-	int add = magazineSize - currentAmmo;
+ObjectPool<Bullet>* Player::GetBulletPool()
+{
+	return bulletPool;
+}
 
-	if ( ammo < add )
-	{
-		add = ammo;
-	}
+ObjectPool<Bullet>* Player::GetSlashPool()
+{
+	return SlashPool;
+}
 
-	currentAmmo += add;
-	ammo -= add;
+Vector2f Player::GetPosition()
+{
+	return position;
+}
 
-	cout << currentAmmo << " / " << magazineSize << " " << ammo << endl;
+Vector2f Player::GetLook()
+{
+	return look;
+}
+
+FireModes Player::GetFireMode()
+{
+	return fireMode;
 }

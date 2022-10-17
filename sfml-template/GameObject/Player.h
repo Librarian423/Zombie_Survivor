@@ -9,12 +9,14 @@ class VertexArrayObj;
 class Zombie;
 class Scene;
 class UIMgr;
+class Pistol;
+
 
 enum class FireModes
 {
-	Manual,
-	Auto,
-	Semi,
+	PISTOL,
+	SUBMACHINE,
+	SWORD,
 };
 
 class Player : public SpriteObj
@@ -25,33 +27,14 @@ protected:
 	float speed;
 	float accelation;
 	float deaccelation;
-
 	Vector2f velocity;
 
 	VertexArrayObj* background;
-
 	ObjectPool<Bullet>* bulletPool;
+	ObjectPool<Bullet>* SlashPool;
 
 	Scene* scene;
 	UIMgr* uiMgr;
-
-	int magazineSize;
-	int ammo;
-	int currentAmmo;
-
-	bool isReloading;
-	float reloadTIme;
-	float reloadTimer;
-	float fireTimer;
-
-	float intervalManual;
-	float intervalSemiauto;
-	float intervalAuto;
-
-	bool isFire;
-	int semiTotal;
-	int semiCount;
-	bool isSemiFiring;
 
 	FireModes fireMode;
 
@@ -68,6 +51,7 @@ public:
 	virtual ~Player();
 
 	void SetBulletPool(ObjectPool<Bullet>* ptr);
+	void SetSlashPool(ObjectPool<Bullet>* ptr);
 	void SetBackground(VertexArrayObj* bk);
 	
 	virtual void Init() override;
@@ -76,16 +60,19 @@ public:
 
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
-	
-	void Fire();
-	void Reload();
 
 	void ResetVelocity();
-	void ResetAmo();
 	void SetShootType();
 	
 	void OnPickupItem(Pickup* item);
 	void OnHitZombie(Zombie* zombie);
+
+	VertexArrayObj* GetPlayerBackground();
+	ObjectPool<Bullet>* GetBulletPool();
+	ObjectPool<Bullet>* GetSlashPool();
+	Vector2f GetPosition();
+	Vector2f GetLook();
+	FireModes GetFireMode();
 
 	void SetHealth(float delta) { health += delta; }
 	float GetDamage() const { return damage; }

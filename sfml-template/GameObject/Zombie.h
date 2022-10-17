@@ -4,6 +4,7 @@
 class Player;
 class Bullet;
 class VertexArrayObj;
+class Slash;
 
 class Zombie : public SpriteObj
 {
@@ -46,8 +47,8 @@ public:
 	Types GetType()const;
 
 	Vector2f GetDir();
-
 	void OnHitBullet(Bullet* bullet);
+	void OnHitSlash(Slash* slash);
 
 	void SetHealth(float delta) { health = health + delta; }
 	float GetDamage() const { return damage; }

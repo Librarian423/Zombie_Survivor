@@ -88,6 +88,7 @@
       <Filter>소스 파일</Filter>
     </ClCompile>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClCompile Include="GameObject\PlayerStatTable.cpp">
 =======
     <ClCompile Include="UI\UiTitleMgr.cpp">
@@ -101,6 +102,18 @@
     </ClCompile>
     <ClCompile Include="Scenes\SceneMenu.cpp">
 >>>>>>> UI
+=======
+    <ClCompile Include="GameObject\Pistol.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\SM.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Sword.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
+    <ClCompile Include="GameObject\Slash.cpp">
+>>>>>>> feature/weapon
       <Filter>소스 파일</Filter>
     </ClCompile>
   </ItemGroup>
@@ -184,6 +197,7 @@
       <Filter>헤더 파일</Filter>
     </ClInclude>
 <<<<<<< HEAD
+<<<<<<< HEAD
     <ClInclude Include="Frameworks.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
@@ -203,6 +217,18 @@
     </ClInclude>
     <ClInclude Include="Scenes\SceneMenu.h">
 >>>>>>> UI
+=======
+    <ClInclude Include="GameObject\Pistol.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\SM.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Sword.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
+    <ClInclude Include="GameObject\Slash.h">
+>>>>>>> feature/weapon
       <Filter>헤더 파일</Filter>
     </ClInclude>
   </ItemGroup>

@@ -4,7 +4,7 @@
 #include "../GameObject/VertexArrayObj.h"
 
 Bullet::Bullet()
-	:dir(), speed(0.f), range(0.f)
+	:speed(0.f), range(0.f)
 {
 }
 

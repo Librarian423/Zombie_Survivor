@@ -9,14 +9,23 @@ class Zombie;
 class Bullet;
 class SpriteObj;
 class Pickup;
+class Pistol;
+class SM;
+class Sword;
+class Slash;
 
 class SceneDev1 : public Scene
 {
 protected:
 	Player* player;
+	Pistol* pistol;
+	SM* sm;
+	Sword* sword;
+	
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
 	ObjectPool<Bullet> bullets;
+	ObjectPool<Bullet> slashes;
 
 public:
 	SceneDev1();
@@ -37,4 +46,3 @@ public:
 	
 	list<Zombie*>* GetZombieList() { return &zombies; }
 };
-
