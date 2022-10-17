@@ -39,7 +39,7 @@ public:
 
 	void CreateBackground(int width, int height, float quadWidth, float quadHeight);
 	void CreateZombies(int wave);
-	
+
 	list<Zombie*>* GetZombieList() { return &zombies; }
 	void ChangeWeapon(int mode);
 };

@@ -1,5 +1,7 @@
 #pragma once
 #include "Scene.h"
+#include "../UI/UiMenuMgr.h"
+
 class SceneMenu : public Scene
 {
 protected:

@@ -34,7 +34,8 @@ void OnCreateSlash(Bullet* bullet)
 	bullet->Init();
 }
 
-SceneDev1::SceneDev1() : Scene(Scenes::Dev1)
+SceneDev1::SceneDev1()
+	: Scene(Scenes::Dev1)
 {
 
 }
@@ -48,8 +49,6 @@ void SceneDev1::Init()
 {
 	Release();
 	
-	uiMgr = new UIDev1Mgr(this);
-	uiMgr->Init();
 
 	CreateBackground(20, 30, 50.f, 50.f);
 
@@ -67,6 +66,8 @@ void SceneDev1::Init()
 	player->SetBackground(background);
 	objList.push_back(player);
 
+	uiMgr = new UIDev1Mgr(this);
+	uiMgr->Init();
 	bullets.OnCreate = OnCreateBullet;
 	bullets.Init();
 
@@ -163,7 +164,6 @@ void SceneDev1::Exit()
 
 void SceneDev1::Update(float dt)
 {
-	
 	Scene::Update(dt);
 
 	// 비활성화된 좀비 제거
@@ -193,6 +193,34 @@ void SceneDev1::Update(float dt)
 
 	worldView.setCenter(player->GetPos());
 	
+	uiMgr->Update(dt);
+	worldView.setCenter(player->GetPos());
+	if (((UIDev1Mgr*)uiMgr)->GetIsMenu() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		SCENE_MGR->ChangeScene(Scenes::Menu);
+		return;
+	}
+	if (((UIDev1Mgr*)uiMgr)->GetIsRestart() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		//SCENE_MGR->ChangeScene(Scenes::Dev1);
+		Exit();
+		Enter();
+		return;
+	}
+	if (((UIDev1Mgr*)uiMgr)->GetIsVolumePlus() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		SOUND_MGR->SetVolume(10.f);
+	}
+	if (((UIDev1Mgr*)uiMgr)->GetIsVolumeMinus() && InputMgr::GetMouseDown(Mouse::Left))
+	{
+		SOUND_MGR->SetVolume(-10.f);
+	}
+
+	if (((UIDev1Mgr*)uiMgr)->GetIsPause())
+		return;
+
+	Scene::Update(dt);
+
 	// 개발용 start
 	if ( InputMgr::GetKeyDown(Keyboard::Space) )
 	{
@@ -250,7 +278,6 @@ void SceneDev1::Draw(RenderWindow& window)
 	{
 		slash->Draw(window);
 	}
-	//ITEM_GEN->Draw(window);
 	uiMgr->Draw(window);
 	
 }

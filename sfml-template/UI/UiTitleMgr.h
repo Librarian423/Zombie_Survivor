@@ -2,6 +2,7 @@
 #include "UIMgr.h"
 #include "../GameObject/TextObj.h"
 #include "../GameObject/SpriteObj.h"
+#include "../DataTable/StringTable.h"
 
 class Scene;
 
@@ -18,6 +19,7 @@ public:
 
 	virtual void Init() override;
 	virtual void Release() override;
+
 	virtual void Reset();
 
 	virtual void Update(float dt);
