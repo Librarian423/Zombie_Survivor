@@ -8,6 +8,7 @@ const int Pickup::TotalTypes = 3;
 Pickup::Pickup()
 	:type(Types::None), value(0), player(nullptr)
 {
+	SetHitbox(FloatRect(0.f, 0.f, 15.f, 15.f));
 }
 
 Pickup::~Pickup()
@@ -48,12 +49,10 @@ void Pickup::SetValue(int v)
 	value = v;
 }
 
-
-
 void Pickup::Update(float dt)
 {
 	//player Á¢ÃË
-	if ( GetGlobalBounds().intersects(player->GetGlobalBounds() ))
+	if (Utils::OBB(GetHitbox(), player->GetHitbox()))
 	{
 		player->OnPickupItem(this);
 		SetActive(false);

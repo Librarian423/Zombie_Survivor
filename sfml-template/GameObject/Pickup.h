@@ -36,4 +36,3 @@ public:
 	virtual void Update(float dt) override;
 
 };
-

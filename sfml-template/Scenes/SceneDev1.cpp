@@ -51,7 +51,7 @@ void SceneDev1::Init()
 	uiMgr = new UIDev1Mgr(this);
 	uiMgr->Init();
 
-	CreateBackground(30, 50, 50.f, 50.f);
+	CreateBackground(20, 30, 50.f, 50.f);
 
 	Vector2i centerPos = FRAMEWORK->GetWindowSize() / 2;
 	background->SetPos({ 0,0 });
@@ -126,7 +126,7 @@ void SceneDev1::Enter()
 	player->SetPos({ 0, 0 });
 
 	//zombie
-	CreateZombies(5);
+	CreateZombies(50);
 
 	player->Reset();
 	bullets.Reset();
@@ -288,12 +288,16 @@ void SceneDev1::CreateBackground(int width, int height, float quadWidth, float q
 	}
 }
 
+void SceneDev1::GenerateWave(int idx)
+{
+	int count = 0;
+	bool isBossRound = false;
+}
+
 // wave(stage)마다 좀비의 능력치를 올려주려면 wave에 비례해서 높은 스탯을 주게함.
 // CreateZombies는 GenerateWave등으로 대체, wave마다 좀비의 수/배치/종류를 다르게 줌
 void SceneDev1::CreateZombies(int count)
 {
-	Vector2f point;
-
 	for ( int i = 0; i < count; i++ )
 	{
 		Zombie* zombie = new Zombie();

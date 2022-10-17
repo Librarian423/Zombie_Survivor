@@ -37,6 +37,7 @@ public:
 	virtual void Draw(RenderWindow& window) override;
 
 	void CreateBackground(int width, int height, float quadWidth, float quadHeight);
+	void GenerateWave(int idx);
 	void CreateZombies(int count);
 	
 	list<Zombie*>* GetZombieList() { return &zombies; }
