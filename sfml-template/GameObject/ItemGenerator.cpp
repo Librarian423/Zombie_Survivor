@@ -120,22 +120,6 @@ void ItemGenerator::Generate(Vector2f pos, int value)
 
 		item->SetPos(position);
 
-		for ( auto i : itemList )
-		{
-			if ( i->GetActive() &&
-				item->GetGlobalBounds().intersects(i->GetGlobalBounds()) )
-			{
-				success = false;
-				count++;
-			}
-		}
 	}
-	if ( success )
-	{
-		itemList.push_back(item);
-	}
-	else
-	{
-		delete item;
-	}
+	itemList.push_back(item);
 }

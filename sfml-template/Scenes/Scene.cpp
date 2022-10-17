@@ -2,6 +2,7 @@
 #include "../Framework/ResourceMgr.h"
 #include "../Framework/Framework.h"
 #include "../UI/UIMgr.h"
+#include "../GameObject/ItemGenerator.h"
 
 Scene::Scene(Scenes type)
 	:type(type)
@@ -37,9 +38,19 @@ void Scene::Update(float dt)
 void Scene::Draw(RenderWindow& window)
 {
 	window.setView(worldView);
+
 	for ( const auto& obj : objList )
 	{
-		if ( obj->GetActive() )
+		if ( obj == objList.front() && obj->GetActive() )
+		{
+			obj->Draw(window);
+			break;
+		}
+	}
+	ITEM_GEN->Draw(window);
+	for ( const auto& obj : objList )
+	{
+		if ( obj != objList.front() && obj->GetActive() )
 		{
 			obj->Draw(window);
 		}
