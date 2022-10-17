@@ -1,47 +1,79 @@
 #include "ItemGenerator.h"
-#include "../Framework/Utils.h"
-#include "Pickup.h"
 #include "../Scenes/SceneMgr.h"
+#include "Pickup.h"
 
 ItemGenerator::ItemGenerator()
-	:createInterval(0.f), createIntervalMax(3.f), createIntervalMin(2.f), createTimer(0.f), radius(500.f), createMax(3)
 {
 }
 
 ItemGenerator::~ItemGenerator()
 {
+	Release();
 }
 
-void ItemGenerator::Reset()
+void ItemGenerator::Init()
 {
-	Object::Reset();
+	itemList.push_back(new Pickup());
+}
 
+void ItemGenerator::Release()
+{
+	for ( auto& item: itemList )
+	{
+		delete item;
+	}
 	itemList.clear();
-	createTimer = 0.f;
-	createInterval = Utils::RandomRange(createIntervalMin, createIntervalMax);
+}
+
+void ItemGenerator::Erase(int num)
+{
+	for ( auto it = itemList.begin(); it != itemList.end(); )
+	{
+		if ( (*it)->GetObjId() == num )
+		{
+			(*it)->SetActive(false);
+			return;
+		}
+		else
+		{
+			it++;
+		}
+	}
 }
 
 void ItemGenerator::Update(float dt)
 {
-	createTimer += dt;
-	if ( createTimer > createInterval )
+	for ( auto it = itemList.begin(); it != itemList.end(); )
 	{
-		int count = Utils::RandomRange(1, createMax + 1);
-		for ( int i = 0; i < count; i++ )
+		if ( (*it)->GetActive() )
 		{
-			Generate();
+			(*it)->Update(dt);
+			it++;
 		}
-		
-		createTimer = 0.f;
-		createInterval = Utils::RandomRange(createIntervalMin, createIntervalMax);
+		else
+		{
+			(*it)->SetActive(false);
+			it = itemList.erase(it);
+		}
 	}
 }
 
-void ItemGenerator::Generate()
+void ItemGenerator::Draw(RenderWindow& window)
+{
+	for ( auto& item : itemList )
+	{
+		if ( item->GetActive() )
+		{
+			item->Draw(window);
+		}
+	}
+}
+
+void ItemGenerator::Generate(Vector2f pos)
 {
 	Scene* scene = SCENE_MGR->GetCurScene();
 
-	Pickup::Types itemType = (Pickup::Types)Utils::RandomRange(0, (int)Pickup::Types::Count);
+	Pickup::Types itemType = (Pickup::Types)Utils::RandomRange(1, (int)Pickup::Types::Count);
 
 	Pickup* item = new Pickup();
 	item->SetType(itemType);
@@ -56,8 +88,9 @@ void ItemGenerator::Generate()
 	while ( !success && count < 100 )
 	{
 		success = true;
-		Vector2f pos = center + Utils::RandomInCirclePoint() * radius;
-		item->SetPos(pos);
+		Vector2f position = pos;
+
+		item->SetPos(position);
 
 		for ( auto i : itemList )
 		{
@@ -72,7 +105,6 @@ void ItemGenerator::Generate()
 	if ( success )
 	{
 		itemList.push_back(item);
-		scene->AddGameObj(item);
 	}
 	else
 	{

@@ -200,6 +200,7 @@ void Player::OnPickupItem(Pickup* item)
 		break;
 	case Pickup::Types::Health:
 		//hp increase
+		health += item->GetValue();
 		break;
 	}
 }

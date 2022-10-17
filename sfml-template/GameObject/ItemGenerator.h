@@ -1,27 +1,25 @@
 #pragma once
+#include "../3rd/Singleton.h"
 #include "Object.h"
 #include <list>
 
 class Pickup;
 
-class ItemGenerator :public Object
+class ItemGenerator :public Singleton<ItemGenerator>
 {
 protected:
-	float createIntervalMin;
-	float createIntervalMax;
-	float createInterval;
-	float createTimer;
-	int createMax;
-	float radius;
-
 	list<Pickup*>itemList;
-
+	Vector2f pos;
+	
 public:
 	ItemGenerator();
 	virtual ~ItemGenerator();
 
-	virtual void Reset();
-	virtual void Update(float dt) override;
-
-	virtual void Generate();
+	void Init();
+	void Release();
+	void Erase(int num);
+	void Update(float dt);
+	void Draw(RenderWindow& window);
+	void Generate(Vector2f pos);
 };
+#define ITEM_GEN (ItemGenerator::GetInstance())

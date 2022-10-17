@@ -11,6 +11,7 @@ public:
 		None = -1,
 		Ammo,
 		Health,
+		Exp,
 		Count,
 	};
 
@@ -21,7 +22,6 @@ protected:
 	int value;
 	Player* player;
 
-	float timer;
 public:
 	Pickup();
 	virtual ~Pickup();
