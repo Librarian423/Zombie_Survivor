@@ -35,7 +35,6 @@ void UiTitleMgr::Init()
 
 	//title
 	title = new TextObj();
-	title->SetFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 	title->SetText(stringTable->Get("Title_Title"));
 	title->GetSfmlText().setCharacterSize(120);
 	title->SetOrigin(Origins::MC);
@@ -44,7 +43,6 @@ void UiTitleMgr::Init()
 		
 	//Guide
 	guide = new TextObj();
-	guide->SetFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 	guide->SetText(stringTable->Get("Title_Guide"));
 	guide->GetSfmlText().setCharacterSize(40);
 	guide->SetOrigin(Origins::MC);

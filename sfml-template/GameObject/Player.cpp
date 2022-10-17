@@ -52,7 +52,7 @@ void Player::Update(float dt)
 {	
 	if ( InputMgr::GetKeyDown(Keyboard::Key::B) )
 	{
-		((UIDev1Mgr*)uiMgr)->SetScore(Utils::RandomRange(0, 10000));
+	
 	}
 
 	SpriteObj::Update(dt);

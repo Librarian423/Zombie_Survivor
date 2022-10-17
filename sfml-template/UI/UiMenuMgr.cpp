@@ -37,7 +37,6 @@ void UiMenuMgr::Init()
 
 	//gameStrat
 	gameStart = new TextObj();
-	gameStart->SetFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 	gameStart->SetText(stringTable->Get("Menu_Game"));
 	gameStart->SetActive(true);
 	gameStart->GetSfmlText().setCharacterSize(40);
@@ -47,7 +46,6 @@ void UiMenuMgr::Init()
 
 	//language
 	language = new TextObj();
-	language->SetFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 	language->SetText(stringTable->Get("Menu_Language"));
 	language->SetActive(true);
 	language->GetSfmlText().setCharacterSize(40);
@@ -57,7 +55,6 @@ void UiMenuMgr::Init()
 
 	//language_Korean
 	Korean = new TextObj();
-	Korean->SetFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 	Korean->SetText(stringTable->Get("Menu_Korean"));
 	Korean->SetActive(false);
 	Korean->GetSfmlText().setCharacterSize(40);
@@ -67,7 +64,6 @@ void UiMenuMgr::Init()
 
 	//language_English
 	English = new TextObj();
-	English->SetFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 	English->SetText(stringTable->Get("Menu_English"));
 	English->SetActive(false);
 	English->GetSfmlText().setCharacterSize(40);
@@ -100,17 +96,6 @@ void UiMenuMgr::Update(float dt)
 	auto stringTable = DATATABLE_MGR->Get<StringTable>(DataTable::Types::String);
 	Vector2f worldMousePos = parentScene->ScreenToUiPos((Vector2i)InputMgr::GetMousePos());
 	cursor->SetPos(worldMousePos);
-	for (auto UiObj : uiObjList)
-	{
-		if (UiObj->GetActive())
-		{
-			UiObj->Release();
-		}
-		else
-		{
-			UiObj->Init();
-		}
-	}
 
 	if (gameStart->GetGlobalBounds().intersects(cursor->GetGlobalBounds()))
 	{

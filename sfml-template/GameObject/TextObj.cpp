@@ -1,7 +1,9 @@
 #include "TextObj.h"
+#include "../Framework/ResourceMgr.h"
 
 TextObj::TextObj()
 {
+	text.setFont(*RESOURCE_MGR->GetFont("fonts/NotoSansKR-Bold.otf"));
 }
 
 TextObj::~TextObj()
