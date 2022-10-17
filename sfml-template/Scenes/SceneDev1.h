@@ -13,6 +13,7 @@ class Pistol;
 class SM;
 class Sword;
 class Slash;
+class ItemGenerator;
 
 class SceneDev1 : public Scene
 {

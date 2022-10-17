@@ -1,6 +1,9 @@
 #include "Zombie.h"
 #include "Player.h"
 #include "VertexArrayObj.h"
+#include "ItemGenerator.h"
+#include "../Scenes/Scene.h"
+#include "../Scenes/SceneMgr.h"
 #include "../Framework/ResourceMgr.h"
 #define _USE_MATH_DEFINES
 
@@ -69,7 +72,7 @@ void Zombie::Init(Player* player)
 {
     this->player = player;
     SetOrigin(Origins::MC);
-
+    scene = SCENE_MGR->GetCurScene();
     SpriteObj::Init();
 }
 
@@ -133,6 +136,7 @@ void Zombie::Reset()
     dir = { 1.f,0.f };
     health = maxHp;
     SetPos(position);
+    
 }
 
 void Zombie::OnHitBullet(Bullet* bullet)
@@ -142,6 +146,7 @@ void Zombie::OnHitBullet(Bullet* bullet)
     if (health <= 0.001f)
     {
         // 경험치 아이템을 드랍하게 하고, 드랍한 아이템을 획득하면 경험치를 획득하게 함
+        ITEM_GEN->Generate(GetPos());
         player->SetExp(maxHp);
         SetActive(false);
     }

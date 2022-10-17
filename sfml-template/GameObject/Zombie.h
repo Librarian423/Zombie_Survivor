@@ -5,6 +5,7 @@ class Player;
 class Bullet;
 class VertexArrayObj;
 class Slash;
+class Scene;
 
 class Zombie : public SpriteObj
 {
@@ -20,7 +21,7 @@ public:
 
 protected:
 	Types type;
-
+	
 	Vector2f dir;
 	float speed;
 
@@ -31,6 +32,8 @@ protected:
 	Player* player;
 
 	VertexArrayObj* background;
+
+	Scene* scene;
 public:
 	Zombie();
 	~Zombie();
@@ -52,4 +55,5 @@ public:
 
 	void SetHealth(float delta) { health = health + delta; }
 	float GetDamage() const { return damage; }
+	void SetScene(Scene* scene) { this->scene = scene; }
 };

@@ -1,12 +1,12 @@
 #include "Pickup.h"
 #include "Player.h"
 #include "../Framework/ResourceMgr.h"
+#include "ItemGenerator.h"
 
 const int Pickup::TotalTypes = 3;
 
-
 Pickup::Pickup()
-	:type(Types::None), value(0), player(nullptr), timer(0.f)
+	:type(Types::None), value(0), player(nullptr)
 {
 }
 
@@ -35,6 +35,11 @@ void Pickup::SetType(Types t)
 		SetTexture(*RESOURCE_MGR->GetTexture("graphics/health_pickup.png"));
 		SetOrigin(Origins::MC);
 		break;
+	case Pickup::Types::Exp:
+		SetTexture(*RESOURCE_MGR->GetTexture("graphics/exp.png"));
+		SetOrigin(Origins::MC);
+		sprite.setScale({ 0.1f,0.1f });
+		break;
 	}
 }
 
@@ -52,12 +57,7 @@ void Pickup::Update(float dt)
 	{
 		player->OnPickupItem(this);
 		SetActive(false);
+		ITEM_GEN->Erase(this->GetObjId());
+		cout << this->GetObjId() << endl;
 	}
-	timer += dt;
-	if ( timer > 3.f )
-	{
-		SetActive(false);
-		timer = 0.f;
-	}
-	
 }

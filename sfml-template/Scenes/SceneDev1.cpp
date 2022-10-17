@@ -69,10 +69,7 @@ void SceneDev1::Init()
 	slashes.OnCreate = OnCreateSlash;
 	slashes.Init();
 
-	//item
-	/*ItemGenerator* itemGen = new ItemGenerator();
-	itemGen->SetName("ItemGenerator");
-	AddGameObj(itemGen);*/
+	ITEM_GEN->Init();
 
 	//weapon
 	pistol = new Pistol();
@@ -110,6 +107,8 @@ void SceneDev1::Release()
 
 void SceneDev1::Enter()
 {
+	ITEM_GEN->Release();
+
 	//마우스 커서
 	FRAMEWORK->GetWindow().setMouseCursorVisible(false);
 	FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
@@ -139,13 +138,13 @@ void SceneDev1::Exit()
 
 		it = zombies.erase(it);
 	}
+	//item
+	ITEM_GEN->Release();
 
 	player->Reset();
 	bullets.Reset();
 	slashes.Reset();
 
-	//FindGameObj("ItemGenerator")->Reset();
-	 
 	uiMgr->Reset();
 }
 
@@ -192,7 +191,7 @@ void SceneDev1::Update(float dt)
 	default:
 		break;
 	}
-	
+	ITEM_GEN->Update(dt);
 	uiMgr->Update(dt);
 }
 
@@ -211,6 +210,7 @@ void SceneDev1::Draw(RenderWindow& window)
 	{
 		slash->Draw(window);
 	}
+	ITEM_GEN->Draw(window);
 	uiMgr->Draw(window);
 }
 
@@ -275,7 +275,6 @@ void SceneDev1::CreateZombies(int count)
 		zombie->SetType((Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes));
 		zombie->Init(player);
 		zombie->SetBackground(background);
-		
 		objList.push_back(zombie);
 		zombies.push_back(zombie);
 	}
