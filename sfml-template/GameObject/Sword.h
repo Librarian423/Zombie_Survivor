@@ -1,36 +1,16 @@
 #pragma once
-#include "../Framework/ObjectPool.h"
-#include "SpriteObj.h"
+#include "Weapon.h"
 
-class Bullet;
-class VertexArrayObj;
-class Scene;
-class Player;
-class Slash;
-
-class Sword : public SpriteObj
+class Sword : public Weapon
 {
-protected:
-	Player* player;
-	Scene* scene;
-	
-	ObjectPool<Bullet>* bulletPool;
-	VertexArrayObj* background;
-	//list<Zombie*> zombies;
-
-	Vector2f look;
-
-	float fireTimer;
-	float intervalSword;
-
 public:
-	Sword();
+	Sword(Player* player);
 	virtual ~Sword();
 
-	void Init(Player* player);
+	virtual void Init() override;
 	virtual void Reset() override;
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	void Fire();//Slash* slash);
+	void Fire();
 };

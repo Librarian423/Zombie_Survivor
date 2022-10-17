@@ -10,4 +10,4 @@ class ConsoleLogger
 public:
 	static void PrintVectorState(Vector2f vec, string name = "");
 };
-#define LOG (ConsoleLogger)
+#define LOG ConsoleLogger

@@ -3,13 +3,14 @@
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
 #include "../Framework/ResourceMgr.h"
-#include "../Scenes/SceneMgr.h"
 #include "Player.h"
 #include "Bullet.h"
 
-Sword::Sword()
-	:fireTimer(1.0f), intervalSword(0.5f)
+Sword::Sword(Player* player)
+	: Weapon(1.0f, 0.5f)
 {
+	this->player = player;
+	SetName("Sword");
 }
 
 Sword::~Sword()
@@ -17,14 +18,11 @@ Sword::~Sword()
 
 }
 
-void Sword::Init(Player* player)
+void Sword::Init()
 {
-	this->player = player;
-	scene = SCENE_MGR->GetCurScene();
-	//this->slash = slash;
+	SpriteObj::Init();
 	bulletPool = player->GetSlashPool();
 	background = player->GetPlayerBackground();
-	SpriteObj::Init();
 }
 
 void Sword::Reset()
@@ -34,6 +32,9 @@ void Sword::Reset()
 
 void Sword::Update(float dt)
 {
+	if (!enabled)
+		return;
+
 	SpriteObj::Update(dt);
 
 	look = player->GetLook();
@@ -45,7 +46,7 @@ void Sword::Update(float dt)
 
 	fireTimer += dt;
 
-	if ( fireTimer > intervalSword && InputMgr::GetMouse(Mouse::Button::Left) )
+	if ( fireTimer > intervalWeapon && InputMgr::GetMouse(Mouse::Button::Left) )
 	{
 		Fire();
 	}
@@ -60,7 +61,7 @@ void Sword::Fire()
 {
 	Vector2f startPos = player->GetPosition() + look * 25.f;
 	Bullet* bullet = bulletPool->Get();
-	bullet->Fire(startPos, look, 1000, 50);
+	bullet->Fire(startPos, look, 500, 50);
 	bullet->SetBackground(background);
 	fireTimer = 0.f;
 }

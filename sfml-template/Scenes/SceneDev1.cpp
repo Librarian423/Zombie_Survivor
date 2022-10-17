@@ -10,7 +10,7 @@
 #include "../GameObject/VertexArrayObj.h"
 #include "../GameObject/ItemGenerator.h"
 #include "../GameObject/Pistol.h"
-#include "../GameObject/SM.h"
+#include "../GameObject/MachineGun.h"
 #include "../GameObject/Sword.h"
 #include "../UI/UIDev1Mgr.h"
 
@@ -69,26 +69,24 @@ void SceneDev1::Init()
 	slashes.OnCreate = OnCreateSlash;
 	slashes.Init();
 
-	//item
-	/*ItemGenerator* itemGen = new ItemGenerator();
-	itemGen->SetName("ItemGenerator");
-	AddGameObj(itemGen);*/
-
 	//weapon
-	pistol = new Pistol();
-	pistol->Init(player);
+	Pistol* pistol = new Pistol(player);
+	objList.push_back(pistol);
 
-	sm = new SM();
-	sm->Init(player);
+	MachineGun* machineGun = new MachineGun(player);
+	objList.push_back(machineGun);
 
-	sword = new Sword();
-	sword->Init(player);
-	
-	//objList.push_back(uiMgr);
+	Sword* sword = new Sword(player);
+	objList.push_back(sword);
+
 	for ( auto obj : objList )
 	{
 		obj->Init();
 	}
+
+	weapons.push_back(pistol);
+	weapons.push_back(machineGun);
+	weapons.push_back(sword);
 }
 
 void SceneDev1::Release()
@@ -102,17 +100,13 @@ void SceneDev1::Release()
 	bullets.Release();
 	slashes.Release();
 	Scene::Release();
-	player = nullptr;
-	pistol = nullptr;
-	sm = nullptr;
-	sword = nullptr;
 }
 
 void SceneDev1::Enter()
 {
 	//마우스 커서
-	FRAMEWORK->GetWindow().setMouseCursorVisible(true);
-	FRAMEWORK->GetWindow().setMouseCursorGrabbed(false);
+	FRAMEWORK->GetWindow().setMouseCursorVisible(false);
+	FRAMEWORK->GetWindow().setMouseCursorGrabbed(true);
 	Vector2i size = FRAMEWORK->GetWindowSize();
 
 	worldView.setSize(size.x, size.y);
@@ -125,6 +119,12 @@ void SceneDev1::Enter()
 
 	//zombie
 	CreateZombies(25);
+
+	player->Reset();
+	bullets.Reset();
+	slashes.Reset();
+	uiMgr->Reset();
+	ChangeWeapon((int)player->GetFireMode());
 }
 
 void SceneDev1::Exit()
@@ -139,14 +139,6 @@ void SceneDev1::Exit()
 
 		it = zombies.erase(it);
 	}
-
-	player->Reset();
-	bullets.Reset();
-	slashes.Reset();
-
-	//FindGameObj("ItemGenerator")->Reset();
-	 
-	uiMgr->Reset();
 }
 
 void SceneDev1::Update(float dt)
@@ -155,6 +147,7 @@ void SceneDev1::Update(float dt)
 
 	worldView.setCenter(player->GetPos());
 
+	// 개발용 start
 	if ( InputMgr::GetKeyDown(Keyboard::Space) )
 	{
 		SCENE_MGR->ChangeScene(Scenes::Dev2);
@@ -174,25 +167,15 @@ void SceneDev1::Update(float dt)
 			obj->SetDevMode(true);
 		}
 	}
+	// 개발용 end
+
+	if (InputMgr::GetMouseDown(Mouse::Button::Right))
+	{
+		ChangeWeapon((int)player->GetFireMode());
+	}
+
 	bullets.Update(dt);
 	slashes.Update(dt);
-
-	switch ( player->GetFireMode() )
-	{
-	case FireModes::PISTOL:
-		pistol->Update(dt);
-		break;
-	case FireModes::SUBMACHINE:
-		sm->Update(dt);
-		break;
-	case FireModes::SWORD:
-		
-		sword->Update(dt);
-		break;
-	default:
-		break;
-	}
-	
 	uiMgr->Update(dt);
 }
 
@@ -278,5 +261,18 @@ void SceneDev1::CreateZombies(int count)
 		
 		objList.push_back(zombie);
 		zombies.push_back(zombie);
+	}
+}
+
+void SceneDev1::ChangeWeapon(int mode)
+{
+	int idx = 0;
+	for (auto i : weapons)
+	{
+		if (idx == mode)
+			i->SetActive(true);
+		else
+			i->SetActive(false);
+		idx++;
 	}
 }

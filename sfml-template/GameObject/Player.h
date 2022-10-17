@@ -17,6 +17,7 @@ enum class FireModes
 	PISTOL,
 	SUBMACHINE,
 	SWORD,
+	COUNT
 };
 
 class Player : public SpriteObj

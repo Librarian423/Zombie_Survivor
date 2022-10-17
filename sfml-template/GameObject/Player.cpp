@@ -9,7 +9,7 @@
 #include "../Scenes/SceneMgr.h"
 #include "../UI/UIDev1Mgr.h"
 #include "Pistol.h"
-#include "SM.h"
+#include "MachineGun.h"
 
 Player::Player()
 	:speed(500), accelation(1000), deaccelation(1000), fireMode(FireModes::PISTOL), exp(0.f)
@@ -54,6 +54,7 @@ void Player::Reset()
 	velocity = { 0.f,0.f };
 	level = 1;
 	exp = 0.f;
+	fireMode = FireModes::PISTOL;
 	SetStatData(level);
 }
 
@@ -156,6 +157,21 @@ void Player::Update(float dt)
 	{
 		SetShootType();
 	}
+
+	// die
+	if (health <= 0.f)
+	{
+		cout << "die" << endl;
+	}
+
+	// level up
+	if (exp >= requireExp)
+	{
+		exp -= requireExp;
+		level++;
+		SetStatData(level);
+		cout << "level up!! " << level << endl;
+	}
 }
 
 void Player::Draw(RenderWindow& window)
@@ -170,25 +186,13 @@ void Player::ResetVelocity()
 
 void Player::SetShootType()
 {
-	switch ( fireMode )
-	{
-	case FireModes::PISTOL:
-		fireMode = FireModes::SUBMACHINE;
-		break;
-	case FireModes::SUBMACHINE:
-		fireMode = FireModes::SWORD;
-		break;
-	case FireModes::SWORD:
+	fireMode = (FireModes)((int)fireMode + 1);
+	if (fireMode == FireModes::COUNT)
 		fireMode = FireModes::PISTOL;
-		break;
-	default:
-		break;
-	}
 }
 
 void Player::OnPickupItem(Pickup* item)
 {
-
 	switch ( item->GetType() )
 	{
 	case Pickup::Types::Ammo:
@@ -204,12 +208,12 @@ void Player::OnHitZombie(Zombie* zombie)
 {
 	if (Utils::OBB(hitbox, zombie->GetHitbox()))
 	{
-		//cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
+		cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
 		SetHealth(-FRAMEWORK->GetRealDT() * 10.f * zombie->GetDamage());
 	}
 	else
 	{
-		//cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;
+		cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;
 	}
 }
 

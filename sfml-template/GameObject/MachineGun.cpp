@@ -1,36 +1,38 @@
-#include "SM.h"
+#include "MachineGun.h"
 #include "Bullet.h"
 #include "VertexArrayObj.h"
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
-#include "../Scenes/SceneMgr.h"
 #include "Player.h"
 
-SM::SM()
-	:fireTimer(1.0f), intervalSM(0.1f)
-{
-}
-
-SM::~SM()
-{
-}
-
-void SM::Init(Player* player)
+MachineGun::MachineGun(Player* player)
+	: Weapon(1.0f, 0.1f)
 {
 	this->player = player;
-	scene = SCENE_MGR->GetCurScene();
-	bulletPool = player->GetBulletPool();
-	background = player->GetPlayerBackground();
-	SpriteObj::Init();
+	SetName("MachineGun");
 }
 
-void SM::Reset()
+MachineGun::~MachineGun()
+{
+}
+
+void MachineGun::Init()
+{
+	SpriteObj::Init();
+	bulletPool = player->GetBulletPool();
+	background = player->GetPlayerBackground();
+}
+
+void MachineGun::Reset()
 {
 	SpriteObj::Reset();
 }
 
-void SM::Update(float dt)
+void MachineGun::Update(float dt)
 {
+	if (!enabled)
+		return;
+
 	SpriteObj::Update(dt);
 
 	look = player->GetLook();
@@ -41,20 +43,18 @@ void SM::Update(float dt)
 	
 	fireTimer += dt;
 
-	if ( fireTimer > intervalSM && InputMgr::GetMouse(Mouse::Button::Left) )
+	if ( fireTimer > intervalWeapon && InputMgr::GetMouse(Mouse::Button::Left) )
 	{
 		Fire();
 	}
-	
-	
 }
 
-void SM::Draw(RenderWindow& window)
+void MachineGun::Draw(RenderWindow& window)
 {
 	SpriteObj::Draw(window);
 }
 
-void SM::Fire()
+void MachineGun::Fire()
 {
 	Vector2f startPos = player->GetPosition() + look * 25.f;
 	Bullet* bullet = bulletPool->Get();

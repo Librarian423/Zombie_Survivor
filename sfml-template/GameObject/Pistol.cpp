@@ -3,26 +3,24 @@
 #include "VertexArrayObj.h"
 #include "../Framework/InputMgr.h"
 #include "../Framework/Framework.h"
-#include "../Scenes/SceneMgr.h"
 #include "Player.h"
 
-
-Pistol::Pistol()
-	:fireTimer(1.0f), intervalPistol(0.1f)
+Pistol::Pistol(Player* player)
+	: Weapon(1.0f, 0.1f)
 {
+	this->player = player;
+	SetName("Pistol");
 }
 
 Pistol::~Pistol()
 {
 }
 
-void Pistol::Init(Player* player)
+void Pistol::Init()
 {
-	this->player = player;
-	scene = SCENE_MGR->GetCurScene();
+	SpriteObj::Init();
 	bulletPool = player->GetBulletPool();
 	background = player->GetPlayerBackground();
-	SpriteObj::Init();
 }
 
 void Pistol::Reset()
@@ -32,17 +30,18 @@ void Pistol::Reset()
 
 void Pistol::Update(float dt)
 {
+	if (!enabled)
+		return;
+
+	if (bulletPool == nullptr)
+		return;
 	SpriteObj::Update(dt);
 	
 	look = player->GetLook();
-	if ( bulletPool == nullptr )
-	{
-		return;
-	}
 
 	fireTimer += dt;
 
-	if ( fireTimer > intervalPistol && InputMgr::GetMouseDown(Mouse::Button::Left) )
+	if ( fireTimer > intervalWeapon && InputMgr::GetMouseDown(Mouse::Button::Left) )
 	{
 		Fire();
 	}

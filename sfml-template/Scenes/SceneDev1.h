@@ -2,6 +2,7 @@
 #include "Scene.h"
 #include <list>
 #include "../Framework/ObjectPool.h"
+#include "../GameObject/Weapon.h"
 
 class Player;
 class VertexArrayObj;
@@ -9,21 +10,15 @@ class Zombie;
 class Bullet;
 class SpriteObj;
 class Pickup;
-class Pistol;
-class SM;
-class Sword;
-class Slash;
 
 class SceneDev1 : public Scene
 {
 protected:
 	Player* player;
-	Pistol* pistol;
-	SM* sm;
-	Sword* sword;
 	
 	VertexArrayObj* background;
 	list<Zombie*> zombies;
+	list<Weapon*> weapons;
 	ObjectPool<Bullet> bullets;
 	ObjectPool<Bullet> slashes;
 
@@ -45,4 +40,5 @@ public:
 	void CreateZombies(int count);
 	
 	list<Zombie*>* GetZombieList() { return &zombies; }
+	void ChangeWeapon(int mode);
 };

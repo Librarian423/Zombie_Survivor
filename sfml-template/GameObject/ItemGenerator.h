@@ -25,4 +25,3 @@ public:
 
 	virtual void Generate();
 };
-

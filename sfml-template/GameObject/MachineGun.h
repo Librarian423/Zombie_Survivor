@@ -1,18 +1,16 @@
 #pragma once
 #include "Weapon.h"
 
-class Player;
-
-class Pistol : public Weapon
+class MachineGun : public Weapon
 {
 public:
-	Pistol(Player* player);
-	virtual ~Pistol();
+	MachineGun(Player* player);
+	virtual ~MachineGun();
 
-	void Init();
+	virtual void Init() override;
 	virtual void Reset() override;
 	virtual void Update(float dt) override;
 	virtual void Draw(RenderWindow& window) override;
 
-	virtual void Fire();
+	void Fire();
 };

@@ -28,13 +28,14 @@
     <ClCompile Include="Scenes\SceneTitle.cpp" />
     <ClCompile Include="UI\UiMenuMgr.cpp" />
     <ClCompile Include="UI\UiTitleMgr.cpp" />
-    <ClCompile Include="GameObject\SM.cpp" />
+    <ClCompile Include="GameObject\MachineGun.cpp" />
     <ClCompile Include="GameObject\Sword.cpp" />
     <ClCompile Include="GameObject\Slash.cpp" />
     <ClCompile Include="UI\UIDev1Mgr.cpp" />
     <ClCompile Include="UI\UIMgr.cpp" />
     <ClCompile Include="GameObject\Pistol.cpp" />
     <ClCompile Include="Framework\ConsoleLogger.cpp" />
+    <ClCompile Include="GameObject\Weapon.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="3rd\rapidcsv.h" />
@@ -70,10 +71,11 @@
     <ClInclude Include="UI\UIDev1Mgr.h" />
     <ClInclude Include="UI\UIMgr.h" />
     <ClInclude Include="Frameworks.h" />
-    <ClInclude Include="GameObject\SM.h" />
+    <ClInclude Include="GameObject\MachineGun.h" />
     <ClInclude Include="GameObject\Sword.h" />
     <ClInclude Include="GameObject\Slash.h" />
     <ClInclude Include="GameObject\Pistol.h" />
     <ClInclude Include="Framework\ConsoleLogger.h" />
+    <ClInclude Include="GameObject\Weapon.h" />
   </ItemGroup>
 </Project>
