@@ -87,7 +87,7 @@ void Zombie::SetZombieType(Types t, int wave)
         SetHitbox(FloatRect(0.f, 0.f, 30.f, 22.f));
         SetName("Crawler");
         this->speed = 150;
-        maxHp = 10.f + wave * 2.f;
+        maxHp = 10.f + wave * 1.f;
         damage = 2.f + wave * 1.f;
         break;
     }
@@ -128,9 +128,9 @@ void Zombie::SetZombieType(Types t, int wave)
         SetHitbox(FloatRect(0.f, 0.f, 250.f, 400.f));
         SetScale(10.f, 10.f);
         SetName("King");
-        this->speed = 150;
+        this->speed = 350;
         maxHp = 10000.f;
-        damage = 250.f;
+        damage = 200.f;
         break;
     }
 	default:

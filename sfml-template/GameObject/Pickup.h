@@ -9,7 +9,6 @@ public:
 	enum class Types
 	{
 		None = -1,
-		Ammo,
 		Health,
 		Exp,
 		Count,

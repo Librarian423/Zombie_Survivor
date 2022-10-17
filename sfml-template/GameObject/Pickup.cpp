@@ -8,7 +8,7 @@ const int Pickup::TotalTypes = 3;
 Pickup::Pickup()
 	:type(Types::None), value(0), player(nullptr)
 {
-	SetHitbox(FloatRect(0.f, 0.f, 15.f, 15.f));
+	SetHitbox(FloatRect(0.f, 0.f, 20.f, 20.f));
 }
 
 Pickup::~Pickup()
@@ -28,10 +28,6 @@ void Pickup::SetType(Types t)
 	case Pickup::Types::None:
 		//texture clear
 		break;
-	case Pickup::Types::Ammo:
-		SetTexture(*RESOURCE_MGR->GetTexture("graphics/ammo_pickup.png"));
-		SetOrigin(Origins::MC);
-		break;
 	case Pickup::Types::Health:
 		SetTexture(*RESOURCE_MGR->GetTexture("graphics/health_pickup.png"));
 		SetOrigin(Origins::MC);
@@ -39,7 +35,7 @@ void Pickup::SetType(Types t)
 	case Pickup::Types::Exp:
 		SetTexture(*RESOURCE_MGR->GetTexture("graphics/exp.png"));
 		SetOrigin(Origins::MC);
-		sprite.setScale({ 0.1f,0.1f });
+		sprite.setScale({ 0.1f, 0.1f });
 		break;
 	}
 }

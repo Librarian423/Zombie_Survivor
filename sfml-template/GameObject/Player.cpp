@@ -196,22 +196,16 @@ void Player::OnPickupItem(Pickup* item)
 {
 	switch ( item->GetType() )
 	{
-	case Pickup::Types::Ammo:
-		//ammo += item->GetValue();
-		break;
 	case Pickup::Types::Health:
 		
 		health += item->GetValue();
 		if ( health >= maxHealth )
-		{
 			health = maxHealth;
-		}
-		cout << "health " << item->GetValue() << " " << health << endl;
+		//cout << "health " << item->GetValue() << " " << health << endl;
 		break;
 	case Pickup::Types::Exp:
-		
 		exp += item->GetValue();
-		cout << "exp " << item->GetValue() << " " << exp << endl;
+		//cout << "exp " << item->GetValue() << " " << exp << endl;
 		break;
 	}
 }
@@ -220,12 +214,12 @@ void Player::OnHitZombie(Zombie* zombie)
 {
 	if (Utils::OBB(hitbox, zombie->GetHitbox()))
 	{
-		cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
 		SetHealth(-FRAMEWORK->GetRealDT() * 10.f * zombie->GetDamage());
+		/*cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
 	}
 	else
 	{
-		cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;
+		cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;*/
 	}
 }
 
