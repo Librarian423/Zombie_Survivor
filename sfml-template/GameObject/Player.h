@@ -86,4 +86,8 @@ public:
 		health = pst.LoadHealth(idx);
 		damage = pst.LoadDamage(idx);
 	}
+	float GetRequireExp() {	return requireExp; }
+	float GetExp() { return exp; }
+	float GetMaxHealth() { return maxHealth; }
+	float GetHealth() { return health; }
 };

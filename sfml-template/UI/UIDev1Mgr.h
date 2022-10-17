@@ -12,8 +12,12 @@ protected:
 	//exp
 	SpriteObj* expFrame;
 	RectangleShape* expBar;
+	float requireExp;
+	float exp;
 	//player hp
 	RectangleShape* playerHpBar;
+	float maxHealth;
+	float health;
 	//zombie hp
 	RectangleShape* zombieHpBar;
 	//Timer
@@ -61,4 +65,9 @@ public:
 	bool GetIsVolumeMinus();
 
 	void SetsettingBackground(bool is) { settingBackground->SetActive(is); };
+
+	void SetRequireExp(float requireExp) {  this->requireExp= requireExp; }
+	void SetExp(float exp) { this->exp= exp; }
+	void SetMaxHealth(float maxHealth) { this->maxHealth= maxHealth; }
+	void SetHealth(float health) { this->health= health; }
 };

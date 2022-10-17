@@ -34,11 +34,11 @@ void UIDev1Mgr::Init()
 	
 	//player hp
 	playerHpBar = new RectangleShape({ expFrame->GetSize().x,expFrame->GetSize().y });
-	playerHpBar->setFillColor(Color::Green);
+	playerHpBar->setFillColor(Color::Red);
 	playerHpBar->setPosition(expFrame->GetPos().x - expFrame->GetSize().x * 0.5f, expFrame->GetPos().y);
 	//zombie hp
 	zombieHpBar = new RectangleShape({ expFrame->GetSize().x,expFrame->GetSize().y });
-	zombieHpBar->setFillColor(Color::Green);
+	zombieHpBar->setFillColor(Color::Red);
 	zombieHpBar->setPosition(expFrame->GetPos().x - expFrame->GetSize().x * 0.5f, expFrame->GetPos().y);
 	
 	auto stringTable = DATATABLE_MGR->Get<StringTable>(DataTable::Types::String);
@@ -217,6 +217,8 @@ void UIDev1Mgr::Update(float dt)
 	int sectext = windowtime % 60;
 	String time = to_string(mintext) + ":" + to_string(sectext);
 	timer->SetText(time);
+
+
 	
 }
 
