@@ -25,7 +25,7 @@ void Object::SetActive(bool active)
 	enabled = active;
 }
 
-bool Object::GetActive() const
+bool Object::GetActive()
 {
 	return enabled;
 }

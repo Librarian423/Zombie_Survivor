@@ -1,3 +1,12 @@
 ID,KOR
-HELLO,안녕하세요\n
-YOU DIE,"""너, 죽었어"""
+Title_Title,좀비 서바이벌
+Title_Guide,스페이스 바를 눌러주십시오.
+Menu_Game,게임 시작
+Menu_Language,언어 선택
+Menu_Korean,한국어
+Menu_English,영어
+GAME_Menu,
+GAME_Restart,재시작
+GAME_VolumeUp,
+GAME_VolumeDown,
+Game_,

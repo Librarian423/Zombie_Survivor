@@ -4,9 +4,8 @@
 StringTable::StringTable()
 	: DataTable(Types::String), currentLang(Languages::KOR)
 {
-	fileNames.push_back("tables/StringTable_Kor.csv");	//
+	fileNames.push_back("tables/StringTable_Kor.csv");
 	fileNames.push_back("tables/StringTable_Eng.csv");
-	fileNames.push_back("tables/StringTable_Jpn.csv");
 }
 
 StringTable::~StringTable()

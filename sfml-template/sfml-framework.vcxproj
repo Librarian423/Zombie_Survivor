@@ -160,6 +160,7 @@
     <ClCompile Include="GameObject\Object.cpp" />
     <ClCompile Include="GameObject\Pickup.cpp" />
     <ClCompile Include="GameObject\PlayerStatTable.cpp" />
+    <ClCompile Include="Scenes\SceneMenu.cpp" />
     <ClCompile Include="Scenes\SceneDev1.cpp" />
     <ClCompile Include="Scenes\SceneDev2.cpp" />
     <ClCompile Include="Scenes\Scene.cpp" />
@@ -169,6 +170,9 @@
     <ClCompile Include="Framework\SoundMgr.cpp" />
     <ClCompile Include="GameObject\VertexArrayObj.cpp" />
     <ClCompile Include="GameObject\Zombie.cpp" />
+    <ClCompile Include="Scenes\SceneTitle.cpp" />
+    <ClCompile Include="UI\UiMenuMgr.cpp" />
+    <ClCompile Include="UI\UiTitleMgr.cpp" />
     <ClCompile Include="UI\UIDev1Mgr.cpp" />
     <ClCompile Include="UI\UIMgr.cpp" />
   </ItemGroup>
@@ -193,6 +197,7 @@
     <ClInclude Include="GameObject\Pickup.h" />
     <ClInclude Include="GameObject\ItemGenerator.h" />
     <ClInclude Include="GameObject\PlayerStatTable.h" />
+    <ClInclude Include="Scenes\SceneMenu.h" />
     <ClInclude Include="Scenes\SceneDev1.h" />
     <ClInclude Include="Scenes\SceneDev2.h" />
     <ClInclude Include="Scenes\Scene.h" />
@@ -202,6 +207,9 @@
     <ClInclude Include="Framework\SoundMgr.h" />
     <ClInclude Include="GameObject\VertexArrayObj.h" />
     <ClInclude Include="GameObject\Zombie.h" />
+    <ClInclude Include="Scenes\SceneTitle.h" />
+    <ClInclude Include="UI\UiMenuMgr.h" />
+    <ClInclude Include="UI\UiTitleMgr.h" />
     <ClInclude Include="UI\UIDev1Mgr.h" />
     <ClInclude Include="UI\UIMgr.h" />
     <ClInclude Include="Frameworks.h" />

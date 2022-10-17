@@ -55,7 +55,7 @@ void Player::Update(float dt)
 {	
 	if ( InputMgr::GetKeyDown(Keyboard::Key::B) )
 	{
-		((UIDev1Mgr*)uiMgr)->SetScore(Utils::RandomRange(0, 10000));
+	
 	}
 
 	SpriteObj::Update(dt);
@@ -68,8 +68,8 @@ void Player::Update(float dt)
 	sprite.setRotation(Utils::Angle(look));
 	hitbox.setRotation(Utils::Angle(look));
 
-	direction.x = InputMgr::GetAxis(Axis::Horizontal);
-	direction.y = InputMgr::GetAxis(Axis::Vertical);
+	direction.x = InputMgr::GetAxisRaw(Axis::Horizontal);
+	direction.y = InputMgr::GetAxisRaw(Axis::Vertical);
 	
 	//°¡¼Ó
 	velocity += direction * accelation * dt;

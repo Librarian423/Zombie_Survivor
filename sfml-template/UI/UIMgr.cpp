@@ -70,7 +70,7 @@ void UIMgr::Draw(RenderWindow& window)
     }
     for ( auto uiObj : uiObjList )
     {
-        if ( uiObj->GetActive() )
+        if ( uiObj->GetActive())
         {
             uiObj->Draw(window);
         }
