@@ -7,8 +7,6 @@
 #include "../Framework/ResourceMgr.h"
 #define _USE_MATH_DEFINES
 
-const int Zombie::TotalTypes = 3;
-
 Zombie::Zombie()
 {
 }
@@ -76,43 +74,65 @@ void Zombie::Init(Player* player)
     SpriteObj::Init();
 }
 
-void Zombie::SetZombieType(Types t)
+void Zombie::SetZombieType(Types t, int wave)
 {
     type = t;
 
     auto resMgr = RESOURCE_MGR;
     switch ( type )
 	{
+    case Zombie::Types::Crawler:
+    {
+        SetTexture(*resMgr->GetTexture("graphics/crawler.png"));
+        SetHitbox(FloatRect(0.f, 0.f, 30.f, 22.f));
+        SetName("Crawler");
+        this->speed = 150;
+        maxHp = 10.f + wave * 2.f;
+        damage = 2.f + wave * 1.f;
+        break;
+    }
+    case Zombie::Types::Chaser:
+    {
+        SetTexture(*resMgr->GetTexture("graphics/chaser.png"));
+        SetHitbox(FloatRect(0.f, 0.f, 20.f, 30.f));
+        SetName("Chaser");
+        this->speed = 100;
+        maxHp = 20.f + wave * 3.f;
+        damage = 5.f + wave * 2.f;
+        break;
+    }
 	case Zombie::Types::Bloater:
 	{
         SetTexture(*resMgr->GetTexture("graphics/bloater.png"));
-        SetHitbox(FloatRect(0.f, 0.f, 40.f, 45.f));
-        SetName("bloater");
-	    this->speed = 40 ;
-        maxHp = 50.f;
-        damage = 10.f;
+        SetHitbox(FloatRect(0.f, 0.f, 25.f, 40.f));
+        SetName("Bloater");
+	    this->speed = 70;
+        maxHp = 50.f + wave * 5.f;
+        damage = 10.f + wave * 3.f;
 	    break;
 	}
-	case Zombie::Types::Chaser:
-	{
+    case Zombie::Types::Boss:
+    {
         SetTexture(*resMgr->GetTexture("graphics/chaser.png"));
-        SetHitbox(FloatRect(0.f, 0.f, 20.f, 30.f));
-        SetName("chaser");
-	    this->speed = 70 ;
-        maxHp = 20.f;
-        damage = 5.f;
-	    break;
-	}
-	case Zombie::Types::Crawler:
-	{ 
-        SetTexture(*resMgr->GetTexture("graphics/crawler.png"));
-        SetHitbox(FloatRect(0.f, 0.f, 30.f, 22.f));
-        SetName("crawler");
-	    this->speed = 20 ;
-        maxHp = 10.f;
-        damage = 2.f;
-	    break;
-	}
+        SetHitbox(FloatRect(0.f, 0.f, 125.f, 200.f));
+        SetScale(5.f, 5.f);
+        SetName("Boss");
+        this->speed = 85;
+        maxHp = 200.f + wave * 100.f;
+        damage = 25.f + wave * 15.f;
+        break;
+    }
+    case Zombie::Types::King:
+    {
+        SetTexture(*resMgr->GetTexture("graphics/bloater.png"));
+        SetHitbox(FloatRect(0.f, 0.f, 250.f, 400.f));
+        SetScale(10.f, 10.f);
+        SetName("King");
+        this->speed = 150;
+        maxHp = 10000.f;
+        damage = 250.f;
+        break;
+    }
 	default:
         break;
     }
@@ -142,12 +162,11 @@ void Zombie::Reset()
 void Zombie::OnHitBullet(Bullet* bullet)
 {
     SetHealth(-player->GetDamage());
+    cout << name << health << endl;
 
     if (health <= 0.001f)
     {
-        // 경험치 아이템을 드랍하게 하고, 드랍한 아이템을 획득하면 경험치를 획득하게 함
         ITEM_GEN->Generate(GetPos(), maxHp);
-        //player->SetExp(maxHp);
         SetActive(false);
     }
 }

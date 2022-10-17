@@ -12,12 +12,12 @@ class Zombie : public SpriteObj
 public:
 	enum class Types
 	{
-		Bloater,
-		Chaser,
 		Crawler,
+		Chaser,
+		Bloater,
+		Boss,
+		King,
 	};
-
-	static const int TotalTypes;
 
 protected:
 	Types type;
@@ -46,7 +46,7 @@ public:
 
 	virtual void Reset() override;
 
-	void SetZombieType(Types t);
+	void SetZombieType(Types t, int wave);
 	Types GetZombieType() const;
 
 	Vector2f GetDir();

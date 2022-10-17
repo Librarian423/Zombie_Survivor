@@ -126,7 +126,8 @@ void SceneDev1::Enter()
 	player->SetPos({ 0, 0 });
 
 	//zombie
-	CreateZombies(50);
+	stage = 1;
+	CreateZombies(stage);
 
 	player->Reset();
 	bullets.Reset();
@@ -185,7 +186,7 @@ void SceneDev1::Update(float dt)
 	}
 
 	if (zombies.empty())
-		CreateZombies(5);
+		CreateZombies(++stage);
 
 	worldView.setCenter(player->GetPos());
 
@@ -288,23 +289,61 @@ void SceneDev1::CreateBackground(int width, int height, float quadWidth, float q
 	}
 }
 
-void SceneDev1::GenerateWave(int idx)
+void SceneDev1::CreateZombies(int wave)
 {
-	int count = 0;
-	bool isBossRound = false;
-}
+	int count = 5 + 5 * wave;
+	bool isBossRound = wave % 3 == 0 ? true : false;
+	bool isKingRound = wave == 10 ? true : false;
 
-// wave(stage)마다 좀비의 능력치를 올려주려면 wave에 비례해서 높은 스탯을 주게함.
-// CreateZombies는 GenerateWave등으로 대체, wave마다 좀비의 수/배치/종류를 다르게 줌
-void SceneDev1::CreateZombies(int count)
-{
+	if (isKingRound)
+	{
+		Zombie* zombie = new Zombie();
+		Vector2f genPos =
+			Utils::RandomOutCirclePoint() *
+			Utils::RandomRange(400.f, 600.f);
+		zombie->SetPos(genPos);
+		zombie->SetType("Zombie");
+		zombie->SetZombieType(Zombie::Types::King, wave);
+		zombie->Init(player);
+		zombie->SetBackground(background);
+		objList.push_back(zombie);
+		zombies.push_back(zombie);
+		return ;
+	}
+
+	if (isBossRound)
+	{
+		int bossCount = wave / 3;
+		for (int i = 0; i < bossCount; i++)
+		{
+			Zombie* zombie = new Zombie();
+			Vector2f genPos =
+				Utils::RandomOutCirclePoint() *
+				Utils::RandomRange(400.f, 600.f);
+			zombie->SetPos(genPos);
+			zombie->SetType("Zombie");
+			zombie->SetZombieType(Zombie::Types::Boss, wave);
+			zombie->Init(player);
+			zombie->SetBackground(background);
+			objList.push_back(zombie);
+			zombies.push_back(zombie);
+		}
+	}
+
 	for ( int i = 0; i < count; i++ )
 	{
 		Zombie* zombie = new Zombie();
-		Vector2f genPos = Utils::RandomOutCirclePoint() * Utils::RandomRange(300.f, 500.f);
+		Vector2f genPos =
+			Utils::RandomOutCirclePoint() * Utils::RandomRange(400.f, 600.f);
 		zombie->SetPos(genPos);
 		zombie->SetType("Zombie");
-		zombie->SetZombieType((Zombie::Types)Utils::RandomRange(0, Zombie::TotalTypes));
+		if (i < count * 0.5f)
+			zombie->SetZombieType(Zombie::Types::Crawler, wave);
+		else if (i < count * 0.75f)
+			zombie->SetZombieType(Zombie::Types::Chaser, wave);
+		else
+			zombie->SetZombieType(Zombie::Types::Bloater, wave);
+
 		zombie->Init(player);
 		zombie->SetBackground(background);
 		objList.push_back(zombie);

@@ -21,6 +21,7 @@ protected:
 	list<Weapon*> weapons;
 	ObjectPool<Bullet> bullets;
 	ObjectPool<Bullet> slashes;
+	int stage;
 
 public:
 	SceneDev1();
@@ -37,8 +38,7 @@ public:
 	virtual void Draw(RenderWindow& window) override;
 
 	void CreateBackground(int width, int height, float quadWidth, float quadHeight);
-	void GenerateWave(int idx);
-	void CreateZombies(int count);
+	void CreateZombies(int wave);
 	
 	list<Zombie*>* GetZombieList() { return &zombies; }
 	void ChangeWeapon(int mode);

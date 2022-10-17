@@ -164,8 +164,8 @@ void Player::Update(float dt)
 		cout << "die" << endl;
 	}
 
-	// level up
-	if (exp >= requireExp)
+	// level up, max level 10
+	if (level <= 10 && exp >= requireExp)
 	{
 		exp -= requireExp;
 		level++;
