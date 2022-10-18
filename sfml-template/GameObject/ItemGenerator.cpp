@@ -87,7 +87,7 @@ void ItemGenerator::Generate(Vector2f pos, int value)
 	item->SetType(itemType);
 	if ( item->GetType() == Pickup::Types::Exp )
 	{
-		float scale = 0.06f + value * 0.002f;
+		float scale = 0.06f + sqrt(value) * 0.02f;
 		item->SetScale(scale, scale);
 		item->SetValue(value);
 	}
