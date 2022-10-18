@@ -3,6 +3,7 @@
 #include "../Framework/InputMgr.h"
 #include "../Framework/ResourceMgr.h"
 #include "../Framework/Framework.h"
+#include "../Framework/SoundMgr.h"
 #include "../UI/UiMenuMgr.h"
 
 
@@ -52,6 +53,7 @@ void SceneMenu::Enter()
 void SceneMenu::Exit()
 {
 	//FRAMEWORK->GetWindow().setMouseCursorVisible(true);
+	SOUND_MGR->StopAll();
 	uiMgr->Reset();
 }
 

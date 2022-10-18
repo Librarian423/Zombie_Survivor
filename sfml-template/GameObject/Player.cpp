@@ -13,7 +13,7 @@
 #include "MachineGun.h"
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), fireMode(FireModes::PISTOL), exp(0.f)
+	:speed(300), accelation(1000), deaccelation(1000), fireMode(FireModes::PISTOL), exp(0.f)
 {
 }
 
