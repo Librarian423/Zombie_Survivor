@@ -13,7 +13,7 @@
 #include "MachineGun.h"
 
 Player::Player()
-	:speed(500), accelation(1000), deaccelation(1000), fireMode(FireModes::PISTOL), exp(0.f)
+	:speed(300), accelation(500), deaccelation(500), fireMode(FireModes::PISTOL), exp(0.f)
 {
 }
 
@@ -168,11 +168,10 @@ void Player::Update(float dt)
 	// level up, max level 10
 	if (level <= 10 && exp >= requireExp)
 	{
-		SOUND_MGR->Play("sound/levelup.wav", false);
+		SOUND_MGR->Play("sound/levelup.wav");
 		exp -= requireExp;
 		level++;
 		SetStatData(level);
-		//health = maxHealth;
 		cout << "level up!! " << level << endl;
 	}
 }
@@ -203,11 +202,9 @@ void Player::OnPickupItem(Pickup* item)
 		health += item->GetValue();
 		if ( health >= maxHealth )
 			health = maxHealth;
-		//cout << "health " << item->GetValue() << " " << health << endl;
 		break;
 	case Pickup::Types::Exp:
 		exp += item->GetValue();
-		//cout << "exp " << item->GetValue() << " " << exp << endl;
 		break;
 	}
 }
@@ -217,11 +214,6 @@ void Player::OnHitZombie(Zombie* zombie)
 	if (Utils::OBB(hitbox, zombie->GetHitbox()))
 	{
 		SetHealth(-FRAMEWORK->GetRealDT() * 10.f * zombie->GetDamage());
-		/*cout << zombie->GetObjId() << zombie->GetName() << "-충돌" << health << endl;
-	}
-	else
-	{
-		cout << zombie->GetObjId() << zombie->GetName() << "-충돌 아님" << endl;*/
 	}
 }
 
